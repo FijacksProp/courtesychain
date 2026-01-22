@@ -1,0 +1,760 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Whitepaper - Courtesy Chain Blockchain | Technical Documentation{% endblock %}
+
+{% block content %}
+<!-- ============================================
+     WHITEPAPER HERO
+     ============================================ -->
+<section class="relative bg-gradient-to-br from-blue-900 to-blue-800 py-16 md:py-24 lg:py-32 overflow-hidden">
+    <!-- Background Elements -->
+    <div class="absolute inset-0">
+        <div class="absolute top-10 left-10 w-64 h-64 md:w-96 md:h-96 bg-green-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-10 right-10 w-64 h-64 md:w-96 md:h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-6 md:mb-8">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <span class="font-semibold text-sm md:text-base tracking-wide text-white">TECHNICAL DOCUMENTATION</span>
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 lg:mb-8 font-serif leading-tight">
+            Courtesy Chain
+            <span class="text-green-400">Whitepaper</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-base md:text-lg lg:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed mb-8 md:mb-12">
+            Version 1.5 - January 2026<br>
+            Revolutionizing Road Safety Through Blockchain Rewards
+        </p>
+
+        <!-- Download Button -->
+        <div>
+            <a href="{% static 'media/Courtesy_Chain_Whitepaper_v1.5.pdf' %}" download class="inline-flex items-center gap-3 bg-green-500 text-gray-900 px-8 md:px-12 py-4 md:py-5 rounded-xl font-bold text-base md:text-lg hover:bg-green-400 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                Download PDF
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     TABLE OF CONTENTS
+     ============================================ -->
+<section class="py-16 md:py-24 bg-white border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Table of Contents</h2>
+            <p class="text-base md:text-lg text-gray-600">Navigate through our comprehensive technical documentation</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            <div class="space-y-2">
+                <a href="#abstract" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">1.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Abstract</span>
+                    </div>
+                </a>
+                <a href="#introduction" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">2.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Introduction / Origin Story</span>
+                    </div>
+                </a>
+                <a href="#mission" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">3.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Mission & Vision</span>
+                    </div>
+                </a>
+                <a href="#problem" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">4.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Core Problem</span>
+                    </div>
+                </a>
+                <a href="#solution" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">5.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Courtesy Chain Solution</span>
+                    </div>
+                </a>
+                <a href="#architecture" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">6.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Technical Architecture</span>
+                    </div>
+                </a>
+                <a href="#ai-layer" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">7.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">AI Integration Layer</span>
+                    </div>
+                </a>
+                <a href="#roadmap" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">8.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Development Roadmap</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="space-y-2">
+                <a href="#tokenomics" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">9.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Tokenomics</span>
+                    </div>
+                </a>
+                <a href="#governance" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">10.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Governance Model</span>
+                    </div>
+                </a>
+                <a href="#security" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">11.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Security Measures</span>
+                    </div>
+                </a>
+                <a href="#regulatory" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">12.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Regulatory Compliance</span>
+                    </div>
+                </a>
+                <a href="#partnerships" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">13.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Strategic Partnerships</span>
+                    </div>
+                </a>
+                <a href="#conclusion" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">14.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">Conclusion</span>
+                    </div>
+                </a>
+                <a href="#references" class="block p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-gray-100">
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-600 font-mono text-sm font-bold">15.</span>
+                        <span class="text-gray-700 group-hover:text-blue-600 transition-colors font-medium">References</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     ABSTRACT SECTION
+     ============================================ -->
+<section id="abstract" class="py-16 md:py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Abstract</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 leading-relaxed mb-6">
+                Courtesy Chain Blockchain represents a revolutionary approach to road safety, combining blockchain technology,
+                artificial intelligence, and behavioral economics to create a decentralized ecosystem that rewards safe driving
+                while promoting courteous behavior on the roads.
+            </p>
+
+            <p class="text-gray-700 leading-relaxed mb-6">
+                This whitepaper outlines our comprehensive solution to the persistent problem of road accidents and aggressive
+                driving, presenting a technical framework that leverages smart contracts, AI-powered verification systems,
+                and community governance to create sustainable incentives for safer roadways.
+            </p>
+
+            <p class="text-gray-700 leading-relaxed">
+                Through the integration of blockchain-based reward mechanisms and AI-driven behavioral analysis, Courtesy Chain
+                aims to transform the driving experience from one of frustration and danger to one of mutual respect and safety.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     INTRODUCTION SECTION
+     ============================================ -->
+<section id="introduction" class="py-16 md:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Introduction / Origin Story</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 leading-relaxed mb-6">
+                The Courtesy Chain project was born from a simple yet profound observation: despite decades of technological
+                advancement in automotive safety, human behavior on the roads remains largely unchanged. Road rage, aggressive
+                driving, and discourteous behavior continue to plague our highways and city streets.
+            </p>
+
+            <p class="text-gray-700 leading-relaxed mb-6">
+                Our founders, having experienced the frustration of daily commutes and witnessed the devastating impact of
+                road accidents on families and communities, recognized that traditional approaches to road safety—fines,
+                education campaigns, and mechanical safety features—were insufficient to address the root cause: human behavior.
+            </p>
+
+            <p class="text-gray-700 leading-relaxed">
+                This realization led to the development of Courtesy Chain, a blockchain-based ecosystem that leverages
+                cryptocurrency rewards and AI-powered verification to create positive incentives for safe and courteous driving.
+                By gamifying good behavior and creating tangible economic benefits for safe drivers, we aim to fundamentally
+                change how people interact on the roads.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     MISSION & VISION SECTION
+     ============================================ -->
+<section id="mission" class="py-16 md:py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Mission & Vision</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Our Mission</h3>
+                </div>
+                <p class="text-gray-600 leading-relaxed">
+                    To create a decentralized ecosystem that rewards safe and courteous driving behavior, reducing road accidents
+                    by 50% within the first five years of implementation through blockchain-based incentives and AI verification.
+                </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Our Vision</h3>
+                </div>
+                <p class="text-gray-600 leading-relaxed">
+                    A world where driving is a positive, rewarding experience that brings communities together rather than
+                    dividing them, where safe driving is the norm rather than the exception, and where courtesy on the roads
+                    creates a ripple effect of positivity in society.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     CORE PROBLEM SECTION
+     ============================================ -->
+<section id="problem" class="py-16 md:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Core Problem</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 leading-relaxed mb-6">
+                Road safety remains a critical global challenge despite technological advances. The core issues are:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-red-50 p-6 rounded-xl border border-red-200">
+                    <h4 class="font-bold text-red-900 mb-2">90% Human Error</h4>
+                    <p class="text-red-700">Approximately 90% of road accidents stem from human error.</p>
+                </div>
+                <div class="bg-orange-50 p-6 rounded-xl border border-orange-200">
+                    <h4 class="font-bold text-orange-900 mb-2">Reactive Systems</h4>
+                    <p class="text-orange-700">Current programs only reward after accidents or insurance claims.</p>
+                </div>
+                <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
+                    <h4 class="font-bold text-yellow-900 mb-2">No Real-time Feedback</h4>
+                    <p class="text-yellow-700">Drivers lack immediate incentives for courteous behavior.</p>
+                </div>
+                <div class="bg-purple-50 p-6 rounded-xl border border-purple-200">
+                    <h4 class="font-bold text-purple-900 mb-2">Privacy Concerns</h4>
+                    <p class="text-purple-700">Data sharing raises valid privacy and surveillance concerns.</p>
+                </div>
+            </div>
+
+            <p class="text-gray-700 leading-relaxed">
+                Courtesy Chain solves these by creating immediate, transparent, blockchain-verified rewards for safe driving.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SOLUTION SECTION
+     ============================================ -->
+<section id="solution" class="py-16 md:py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Courtesy Chain Solution</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 leading-relaxed mb-8">
+                Courtesy Chain merges telematics, AI, and blockchain into one unified trust network:
+            </p>
+
+            <div class="space-y-4">
+                <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-200">
+                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <span class="text-blue-600 font-bold text-sm">1</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-2">Data Collection</h4>
+                        <p class="text-gray-600">Smartphone and vehicle sensors record real-time driving behavior.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-200">
+                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <span class="text-green-600 font-bold text-sm">2</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-2">AI Analysis</h4>
+                        <p class="text-gray-600">Machine learning models analyze data for courtesy metrics (yielding, smooth braking, speed compliance).</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-200">
+                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <span class="text-blue-600 font-bold text-sm">3</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-2">Blockchain Validation</h4>
+                        <p class="text-gray-600">PoSD validator nodes confirm AI signatures on the blockchain.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-200">
+                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                        <span class="text-green-600 font-bold text-sm">4</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 mb-2">Instant Rewards</h4>
+                        <p class="text-gray-600">Smart contracts mint and distribute $COURTESY tokens immediately upon validation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     ARCHITECTURE SECTION
+     ============================================ -->
+<section id="architecture" class="py-16 md:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Technical Architecture</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 leading-relaxed mb-8">
+                Courtesy Chain is built as a hybrid Proof-of-Stake (PoS) and Proof-of-Safe-Driving (PoSD) network across four integrated layers:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                    <h4 class="font-bold text-blue-900 mb-3">Application Layer</h4>
+                    <p class="text-blue-700">Mobile app (light client), wallet integration, and user dashboard for tracking trips and rewards.</p>
+                </div>
+                <div class="bg-green-50 p-6 rounded-xl border border-green-200">
+                    <h4 class="font-bold text-green-900 mb-3">AI Verification Layer</h4>
+                    <p class="text-green-700">Machine learning models interpret driving data and generate cryptographic signatures.</p>
+                </div>
+                <div class="bg-purple-50 p-6 rounded-xl border border-purple-200">
+                    <h4 class="font-bold text-purple-900 mb-3">Consensus Layer</h4>
+                    <p class="text-purple-700">Validators stake $COURTESY to secure the network and confirm PoSD events.</p>
+                </div>
+                <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
+                    <h4 class="font-bold text-yellow-900 mb-3">Ledger Layer</h4>
+                    <p class="text-yellow-700">Immutable blockchain records of verified acts and token distributions.</p>
+                </div>
+            </div>
+
+            <p class="text-gray-700 leading-relaxed">
+                Key features include lightweight mobile nodes for global scalability, validator network anchored in eco-friendly PoS, and modular smart contracts for rewards, governance, and staking.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     AI LAYER SECTION
+     ============================================ -->
+<section id="ai-layer" class="py-16 md:py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">AI Integration Layer</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 leading-relaxed mb-8">
+                The AI Verification Layer is Courtesy Chain's "brain" - it intelligently interprets driving data and generates verification signatures:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h5 class="font-bold text-gray-900 mb-2">Data Interpretation</h5>
+                    <p class="text-gray-600 text-sm">Reads GPS, accelerometer, brake pressure, and OBD-II sensor feeds in real-time.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h5 class="font-bold text-gray-900 mb-2">Behavior Classification</h5>
+                    <p class="text-gray-600 text-sm">Distinguishes courteous acts from reckless or aggressive driving patterns.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h5 class="font-bold text-gray-900 mb-2">Context Awareness</h5>
+                    <p class="text-gray-600 text-sm">Factors in traffic conditions, time of day, weather, and road type.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <h5 class="font-bold text-gray-900 mb-2">Fraud Detection</h5>
+                    <p class="text-gray-600 text-sm">Flags spoofed or manipulated sensor data and unusual patterns.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg border border-gray-200 md:col-span-2">
+                    <h5 class="font-bold text-gray-900 mb-2">Reward Authorization</h5>
+                    <p class="text-gray-600 text-sm">Generates cryptographically signed verifications that trigger smart-contract rewards.</p>
+                </div>
+            </div>
+
+            <p class="text-gray-700 leading-relaxed">
+                Models improve through federated learning - training collectively on privacy-preserved data without exposing individual driver information.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     ROADMAP SECTION
+     ============================================ -->
+<section id="roadmap" class="py-16 md:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Development Roadmap</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="border-l-4 border-blue-500 pl-6 pb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Q1 2026: MVP & Beta Launch</h3>
+                <p class="text-gray-600">iOS/Android beta app, testnet deployment, AI model training with safety data.</p>
+            </div>
+            <div class="border-l-4 border-green-500 pl-6 pb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Q2 2026: Mainnet Launch</h3>
+                <p class="text-gray-600">Full mainnet deployment, $COURTESY token launch, initial validator network.</p>
+            </div>
+            <div class="border-l-4 border-purple-500 pl-6 pb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Q3 2026: Insurance Partnerships</h3>
+                <p class="text-gray-600">Integration with major insurance providers for premium discounts via Courtesy rewards.</p>
+            </div>
+            <div class="border-l-4 border-orange-500 pl-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Q4 2026: Governance Transition</h3>
+                <p class="text-gray-600">DAO formation, community voting on protocol parameters, ecosystem grants program.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     TOKENOMICS SECTION
+     ============================================ -->
+<section id="tokenomics" class="py-16 md:py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Tokenomics</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="overflow-x-auto mb-8">
+            <table class="w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-900">Parameter</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left font-bold text-gray-900">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white">
+                        <td class="border border-gray-300 px-4 py-3 font-medium">Total Supply</td>
+                        <td class="border border-gray-300 px-4 py-3">100 million $COURTESY</td>
+                    </tr>
+                    <tr class="bg-gray-100">
+                        <td class="border border-gray-300 px-4 py-3 font-medium">Initial Allocation</td>
+                        <td class="border border-gray-300 px-4 py-3">65% bonding curve, 25% staking, 10% team/ecosystem</td>
+                    </tr>
+                    <tr class="bg-white">
+                        <td class="border border-gray-300 px-4 py-3 font-medium">Annual Inflation</td>
+                        <td class="border border-gray-300 px-4 py-3">8% (decreasing to 2% by year 5)</td>
+                    </tr>
+                    <tr class="bg-gray-100">
+                        <td class="border border-gray-300 px-4 py-3 font-medium">Staking APY</td>
+                        <td class="border border-gray-300 px-4 py-3">12-20% (variable based on validator participation)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="text-gray-700 leading-relaxed">
+            Token distribution funds MVP development, AI research, regulatory compliance, and community grants for ecosystem growth.
+        </p>
+    </div>
+</section>
+
+<!-- ============================================
+     GOVERNANCE SECTION
+     ============================================ -->
+<section id="governance" class="py-16 md:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Governance Model</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                <h4 class="font-bold text-blue-900 mb-2">Phase 1: Foundation Governance (Q1-Q3 2026)</h4>
+                <p class="text-blue-700">Core team and validator nodes make critical decisions.</p>
+            </div>
+            <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
+                <h4 class="font-bold text-green-900 mb-2">Phase 2: Hybrid Governance (Q4 2026)</h4>
+                <p class="text-green-700">Governance portal enables token holders to vote on protocol parameters.</p>
+            </div>
+            <div class="bg-purple-50 p-6 rounded-xl border-l-4 border-purple-500">
+                <h4 class="font-bold text-purple-900 mb-2">Phase 3: Full DAO (2027+)</h4>
+                <p class="text-purple-700">Complete decentralization with community-controlled treasury and roadmap.</p>
+            </div>
+        </div>
+
+        <div class="mt-8 bg-gray-100 p-6 rounded-xl">
+            <h4 class="font-bold text-gray-900 mb-4">Voting Power:</h4>
+            <p class="text-gray-700 mb-4">Weighted by staked $COURTESY tokens. Community can propose changes to:</p>
+            <ul class="space-y-2 text-gray-700">
+                <li>• Reward ratios and distribution formulas</li>
+                <li>• Validator requirements and incentives</li>
+                <li>• Treasury allocations and grants</li>
+                <li>• New feature development priorities</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     SECURITY SECTION
+     ============================================ -->
+<section id="security" class="py-16 md:py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Security Measures</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-xl border border-gray-200">
+                <h4 class="font-bold text-gray-900 mb-3">Data Privacy</h4>
+                <ul class="space-y-2 text-gray-600 text-sm">
+                    <li>✓ Zero-knowledge proofs for verification</li>
+                    <li>✓ Encrypted driver IDs and hashed addresses</li>
+                    <li>✓ Off-chain storage of sensitive data</li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-gray-200">
+                <h4 class="font-bold text-gray-900 mb-3">Smart Contract Security</h4>
+                <ul class="space-y-2 text-gray-600 text-sm">
+                    <li>✓ Multi-signature validator approvals</li>
+                    <li>✓ Regular third-party audits</li>
+                    <li>✓ Rate-limiting on reward distributions</li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-gray-200">
+                <h4 class="font-bold text-gray-900 mb-3">Fraud Prevention</h4>
+                <ul class="space-y-2 text-gray-600 text-sm">
+                    <li>✓ AI anomaly detection for suspicious patterns</li>
+                    <li>✓ Cross-validation with vehicle manufacturer data</li>
+                    <li>✓ Automatic flagging of GPS spoofing attempts</li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-gray-200">
+                <h4 class="font-bold text-gray-900 mb-3">Network Security</h4>
+                <ul class="space-y-2 text-gray-600 text-sm">
+                    <li>✓ DDoS protection and rate limiting</li>
+                    <li>✓ Validator slashing for malicious behavior</li>
+                    <li>✓ Distributed consensus mechanisms</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     REGULATORY COMPLIANCE SECTION
+     ============================================ -->
+<section id="regulatory" class="py-16 md:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Regulatory Compliance</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 leading-relaxed mb-8">
+                Courtesy Chain is designed to comply with global regulatory frameworks:
+            </p>
+
+            <div class="space-y-4">
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                    <h4 class="font-bold text-blue-900 mb-2">GDPR & Data Privacy</h4>
+                    <p class="text-blue-700">Users own their data with full deletion rights and privacy controls.</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <h4 class="font-bold text-green-900 mb-2">Securities Compliance</h4>
+                    <p class="text-green-700">$COURTESY token designed as utility token, not security. Transparent tokenomics and no promises of profits.</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                    <h4 class="font-bold text-purple-900 mb-2">AML/KYC Integration</h4>
+                    <p class="text-purple-700">Optional KYC for high-value redemptions through approved providers.</p>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                    <h4 class="font-bold text-orange-900 mb-2">Insurance Regulation</h4>
+                    <p class="text-orange-700">Coordination with insurance regulators for premium integration programs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     PARTNERSHIPS SECTION
+     ============================================ -->
+<section id="partnerships" class="py-16 md:py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Strategic Partnerships</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h4 class="font-bold text-gray-900 mb-3">Insurance Partners</h4>
+                <p class="text-gray-600">Premium discounts for drivers with verified safe driving records on Courtesy Chain.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h4 class="font-bold text-gray-900 mb-3">Vehicle Manufacturers</h4>
+                <p class="text-gray-600">OEM integrations for native telematics and Courtesy Chain incentives built into vehicles.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h4 class="font-bold text-gray-900 mb-3">Gas & Energy Providers</h4>
+                <p class="text-gray-600">$COURTESY token redemptions for EV charging, fuel, and toll discounts.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h4 class="font-bold text-gray-900 mb-3">Government Agencies</h4>
+                <p class="text-gray-600">Collaboration on road safety initiatives and public transportation incentives.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     CONCLUSION SECTION
+     ============================================ -->
+<section id="conclusion" class="py-16 md:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">Conclusion</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 leading-relaxed mb-6">
+                Courtesy Chain represents a fundamental shift in how we incentivize safe behavior on the roads. By combining blockchain transparency, AI intelligence, and economic rewards, we create a system where doing the right thing literally pays.
+            </p>
+
+            <p class="text-gray-700 leading-relaxed mb-6">
+                The platform's success depends on community participation, regulatory cooperation, and continuous improvement of AI models. We invite drivers, insurance companies, vehicle manufacturers, and road safety advocates to join this mission.
+            </p>
+
+            <p class="text-gray-700 leading-relaxed mb-6">
+                Together, we can build a future where courtesy is rewarded, accidents are prevented, and every road is safer.
+            </p>
+
+            <div class="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl border border-blue-200 mt-8">
+                <p class="text-center text-lg font-semibold text-gray-900">
+                    🚗 Courtesy Pays. Drive Kind. Get Rewarded. 🚗
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     REFERENCES SECTION
+     ============================================ -->
+<section id="references" class="py-16 md:py-24 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 font-serif">References</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="prose prose-lg max-w-none text-gray-700">
+            <ol class="space-y-4 list-decimal list-inside">
+                <li>National Highway Traffic Safety Administration (NHTSA). Road Traffic Deaths Report 2024.</li>
+                <li>World Health Organization (WHO). Global Status Report on Road Safety 2023.</li>
+                <li>Insurance Institute for Highway Safety (IIHS). Human Error in Driving Accidents Analysis.</li>
+                <li>Ethereum Improvement Proposals (EIP) - Smart Contract Standards and Best Practices.</li>
+                <li>Nakamoto, S. (2008). Bitcoin: A Peer-to-Peer Electronic Cash System.</li>
+                <li>Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press.</li>
+                <li>Federal Trade Commission (FTC). Data Privacy and Consumer Protection Guidelines 2024.</li>
+                <li>MIT Media Lab. Blockchain and Behavioral Economics Research Initiative.</li>
+                <li>Cambridge Centre for Risk Studies. Autonomous Vehicles and Road Safety Analysis.</li>
+                <li>Courtesy Chain Official Documentation and Whitepapers.</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Smooth scrolling for table of contents
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,3 +1,7 @@
 .env
 README.md
 PROJECT_SUMMARY.md
+DEPLOYMENT.md
+TODO.md
+logs/
+*.log

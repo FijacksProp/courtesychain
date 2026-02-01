@@ -120,7 +120,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #1e3a8a 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -233,7 +233,7 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.08;
+            opacity: 0.4;
         }
 
         /* ============================================
@@ -257,18 +257,18 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
             backdrop-filter: blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.05);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            /* padding: 0rem 0; */
         }
 
         nav.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 100%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(14, 165, 233, 0.2);
         }
 
         .logo-wrapper {
@@ -276,11 +276,14 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
-            transition: transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0.5rem;
+            border-radius: 12px;
         }
 
         .logo-wrapper:hover {
             transform: translateY(-2px);
+            background: rgba(14, 165, 233, 0.05);
         }
 
         /* <!-- PLACE LOGO IMAGE HERE: Logo should be 48px height, auto width, professional quality --> */
@@ -289,6 +292,11 @@
             width: auto;
             object-fit: contain;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-wrapper:hover .logo-image {
+            transform: scale(1.05);
         }
 
         .logo-text {
@@ -299,11 +307,21 @@
             display: flex;
             flex-direction: column;
             line-height: 1.1;
+            transition: color 0.3s ease;
+        }
+
+        .logo-wrapper:hover .logo-text {
+            color: #0284c7;
         }
 
         .logo-text-main {
             color: #0c4a6e;
             letter-spacing: -0.025em;
+            transition: color 0.3s ease;
+        }
+
+        .logo-wrapper:hover .logo-text-main {
+            color: #0284c7;
         }
 
         .logo-text-token {
@@ -312,6 +330,11 @@
             font-weight: 600;
             letter-spacing: 0.05em;
             font-family: 'Inter', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .logo-wrapper:hover .logo-text-token {
+            color: #16a34a;
         }
 
         .nav-links {
@@ -361,6 +384,17 @@
             cursor: pointer;
             gap: 4px;
             z-index: 1001;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(14, 165, 233, 0.05);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+
+        .menu-toggle:hover {
+            background: rgba(14, 165, 233, 0.1);
+            border-color: rgba(14, 165, 233, 0.2);
+            transform: scale(1.05);
         }
 
         .menu-toggle span {
@@ -369,106 +403,7 @@
             background: #0c4a6e;
             border-radius: 1px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        nav {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            border-bottom: 1px solid #E5E7EB;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-wrapper:hover {
-            transform: translateY(-2px);
-        }
-
-        /* <!-- PLACE LOGO IMAGE HERE: Logo should be 45px height, auto width --> */
-        .logo-image {
-            height: 45px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .logo-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #1E40AF;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .logo-text-main {
-            color: #1E40AF;
-        }
-
-        .logo-text-token {
-            font-size: 0.75rem;
-            color: #F59E0B;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 0.75rem;
-            align-items: center;
-        }
-
-        .nav-links li a {
-            color: #4B5563;
-            text-decoration: none;
-            padding: 0.625rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links li a:hover {
-            color: #1E40AF;
-            background: #F3F4F6;
-        }
-
-        .nav-links li a.active {
-            color: #1E40AF;
-            background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
-            font-weight: 600;
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-            z-index: 1001;
-        }
-
-        .menu-toggle span {
-            width: 28px;
-            height: 3px;
-            background: #1E40AF;
-            border-radius: 2px;
-            transition: all 0.3s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         /* ============================================
@@ -567,7 +502,6 @@
                 font-size: 1rem;
             }
         }
-    </style>
     </style>
 </head>
 <body class="bg-white">

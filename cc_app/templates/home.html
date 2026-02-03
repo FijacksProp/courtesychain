@@ -7,7 +7,7 @@
 <!-- ============================================
      HERO SECTION - PROFESSIONAL & COMPELLING
      ============================================ -->
-<section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 overflow-hidden min-h-screen flex items-center">
+<section class="relative bg-gradient-to-br from-blue-950 via-blue-900 to-blue-950 overflow-hidden min-h-screen flex items-center">
     <!-- Animated gradient overlay -->
     <div class="absolute inset-0 opacity-10">
         <div class="absolute top-20 right-20 w-[600px] h-[600px] bg-accent-400 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -16,7 +16,7 @@
     </div>
     
     <div class="relative max-w-7xl mx-auto px-6 py-20 lg:py-32">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Left Column - Compelling Message -->
             <div class="text-white space-y-8 animate-on-scroll">
                 <!-- Status Badge -->
@@ -39,7 +39,7 @@
                 </p>
                 
                 <!-- Key Stats -->
-                <div class="grid grid-cols-2 gap-6 py-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6">
                     <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4">
                         <div class="text-3xl font-bold text-accent-400">90%</div>
                         <div class="text-sm text-blue-200 mt-1">Accidents from Human Error</div>
@@ -51,7 +51,7 @@
                 </div>
                 
                 <!-- CTA Buttons -->
-                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <div class="flex flex-col sm:flex-row gap-4 pt-2">
                     <a href="#how-it-works" class="group bg-white text-blue-900 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 text-center inline-flex items-center justify-center gap-2">
                         <span class="group-hover:scale-105 transition-transform inline-block">Learn How It Works</span>
                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,8 +66,32 @@
                     </a>
                 </div>
 
+                <!-- Hero Media Strip -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-xl overflow-hidden border border-white/20">
+                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=200&q=80" alt="Courtesy Chain safe drive" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-sm text-blue-200 uppercase tracking-wide font-semibold">Safe Driving Insights</p>
+                            <p class="text-white font-semibold">Personalized feedback after every trip</p>
+                        </div>
+                        <!-- Suggested: Replace with an in-app trip summary screenshot, 200x200px -->
+                    </div>
+                    <div class="flex-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-xl overflow-hidden border border-white/20">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=200&q=80" alt="Reward wallet" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-sm text-blue-200 uppercase tracking-wide font-semibold">Instant Rewards</p>
+                            <p class="text-white font-semibold">$COURTESY earned in real time</p>
+                        </div>
+                        <!-- Suggested: Replace with token wallet UI card or rewards dashboard screenshot, 200x200px -->
+                    </div>
+                </div>
+
                 <!-- Smart Contract Address -->
-                <div class="bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl p-6 mt-8 max-w-2xl">
+                <div class="bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl p-6 mt-6 max-w-2xl">
                     <div class="text-blue-200 text-sm font-semibold uppercase tracking-wider mb-3 flex items-center gap-2">
                         <svg class="w-4 h-4 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
@@ -93,10 +117,22 @@
             <div class="flex justify-center lg:justify-end animate-on-scroll delay-200">
                 <div class="relative">
                     <!-- Animated glow effect -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-accent-400/30 to-primary-400/30 rounded-full blur-3xl animate-pulse-slow"></div>
-                    <!-- Professional hero image placeholder -->
-                    <img src="https://res.cloudinary.com/djog95pdd/image/upload/v1769538407/courtesychain_jibnse.png" alt="Courtesy Chain Ecosystem" class="relative w-64 md:w-96 lg:w-[450px] h-auto drop-shadow-2xl animate-float">
-                    <!-- Suggested: High-quality 3D render of interconnected blockchain nodes, safe driving visualization, or professional logo with network effects, 600x600px, transparent background -->
+                    <div class="absolute -inset-6 bg-gradient-to-r from-accent-400/30 to-primary-400/30 rounded-[40px] blur-3xl animate-pulse-slow"></div>
+                    <div class="relative rounded-[32px] border border-white/20 bg-white/5 backdrop-blur-md p-6 shadow-2xl">
+                        <!-- Professional hero image placeholder -->
+                        <img src="https://res.cloudinary.com/djog95pdd/image/upload/v1769538407/courtesychain_jibnse.png" alt="Courtesy Chain Ecosystem" class="w-64 md:w-96 lg:w-[420px] h-auto drop-shadow-2xl animate-float">
+                        <!-- Suggested: High-quality 3D render of interconnected blockchain nodes, safe driving visualization, or professional logo with network effects, 600x600px, transparent background -->
+                    </div>
+                    <div class="absolute -bottom-10 -left-10 bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-white/30 shadow-xl w-52">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=160&q=80" alt="Courtesy Chain app preview" class="w-12 h-12 rounded-xl object-cover">
+                            <div>
+                                <p class="text-xs uppercase tracking-wide text-primary-700 font-semibold">App Preview</p>
+                                <p class="text-sm text-secondary-700 font-semibold">Drive score + rewards</p>
+                            </div>
+                        </div>
+                        <!-- Suggested: Replace with a mobile app UI screen, 160x160px -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -202,13 +238,14 @@
                     1
                 </div>
                 <div class="mt-6 space-y-4">
-                    <div class="w-16 h-16 bg-primary-100 rounded-xl flex items-center justify-center text-4xl">
-                        📱
+                    <div class="w-16 h-16 rounded-xl overflow-hidden shadow-md border border-primary-100">
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=200&q=80" alt="Drive with app" class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-xl font-bold text-secondary-900">Drive with App</h3>
                     <p class="text-secondary-600 leading-relaxed">
                         Your smartphone captures driving data using GPS, accelerometer, and telematics—completely privacy-protected
                     </p>
+                    <!-- Suggested: Replace with a polished app UI mockup on a phone, 200x200px -->
                 </div>
             </div>
 
@@ -218,13 +255,14 @@
                     2
                 </div>
                 <div class="mt-6 space-y-4">
-                    <div class="w-16 h-16 bg-accent-100 rounded-xl flex items-center justify-center text-4xl">
-                        🤖
+                    <div class="w-16 h-16 rounded-xl overflow-hidden shadow-md border border-accent-100">
+                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=200&q=80" alt="AI analysis" class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-xl font-bold text-secondary-900">AI Analyzes</h3>
                     <p class="text-secondary-600 leading-relaxed">
                         Advanced AI verifies courteous acts: yielding, smooth braking, safe following distance, and lawful speeds
                     </p>
+                    <!-- Suggested: Replace with an AI dashboard visualization or neural network illustration, 200x200px -->
                 </div>
             </div>
 
@@ -234,13 +272,14 @@
                     3
                 </div>
                 <div class="mt-6 space-y-4">
-                    <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center text-4xl">
-                        ⛓️
+                    <div class="w-16 h-16 rounded-xl overflow-hidden shadow-md border border-purple-100">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80" alt="Blockchain validation" class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-xl font-bold text-secondary-900">Blockchain Validates</h3>
                     <p class="text-secondary-600 leading-relaxed">
                         Proof-of-Safe-Driving validators confirm AI signatures on-chain, creating an immutable record of good behavior
                     </p>
+                    <!-- Suggested: Replace with a blockchain network visualization, 200x200px -->
                 </div>
             </div>
 
@@ -250,13 +289,14 @@
                     4
                 </div>
                 <div class="mt-6 space-y-4">
-                    <div class="w-16 h-16 bg-accent-100 rounded-xl flex items-center justify-center text-4xl">
-                        💰
+                    <div class="w-16 h-16 rounded-xl overflow-hidden shadow-md border border-accent-100">
+                        <img src="https://images.unsplash.com/photo-1509017174183-0b7e0278f1ec?auto=format&fit=crop&w=200&q=80" alt="Earn rewards" class="w-full h-full object-cover">
                     </div>
                     <h3 class="text-xl font-bold text-secondary-900">Earn Rewards</h3>
                     <p class="text-secondary-600 leading-relaxed">
                         Smart contracts instantly mint and distribute $COURTESY tokens directly to your wallet—real rewards for real kindness
                     </p>
+                    <!-- Suggested: Replace with token wallet or rewards animation still, 200x200px -->
                 </div>
             </div>
         </div>

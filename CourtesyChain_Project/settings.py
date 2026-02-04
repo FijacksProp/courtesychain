@@ -25,9 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = config('DEBUG', default=False, cast=bool)
-
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # SECURITY WARNING: Replace with your actual domain(s) in production!
 # Include both www and non-www versions: 'courtesychain.com,www.courtesychain.com'

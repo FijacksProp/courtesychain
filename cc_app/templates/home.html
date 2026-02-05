@@ -68,21 +68,25 @@
 
                 <!-- Hero Media Strip -->
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <div class="flex-1 bg-white/10 backdrop-blur-xl border border-white/15 rounded-2xl p-4 flex items-center gap-4 shadow-lg">
-                        <div class="w-14 h-14 rounded-xl overflow-hidden border border-white/20">
-                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=200&q=80" alt="Courtesy Chain safe drive" class="w-full h-full object-cover">
+                    <div class="flex-1 bg-white/10 backdrop-blur-xl border border-white/15 rounded-2xl p-4 flex items-center gap-4 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=200&q=80'); background-size: cover; background-position: center;">
+                        <div class="absolute inset-0 bg-black/20 rounded-2xl"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/20 rounded-2xl"></div>
+                        <div class="relative w-14 h-14 rounded-xl overflow-hidden border border-white/20">
+                            <!-- Placeholder for icon or additional element -->
                         </div>
-                        <div>
+                        <div class="relative">
                             <p class="text-sm text-blue-200 uppercase tracking-wide font-semibold">Safe Driving Insights</p>
                             <p class="text-white font-semibold">Personalized feedback after every trip</p>
                         </div>
                         <!-- Suggested: Replace with an in-app trip summary screenshot, 200x200px -->
                     </div>
-                    <div class="flex-1 bg-white/10 backdrop-blur-xl border border-white/15 rounded-2xl p-4 flex items-center gap-4 shadow-lg">
-                        <div class="w-14 h-14 rounded-xl overflow-hidden border border-white/20">
-                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=200&q=80" alt="Reward wallet" class="w-full h-full object-cover">
+                    <div class="flex-1 bg-white/10 backdrop-blur-xl border border-white/15 rounded-2xl p-4 flex items-center gap-4 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=200&q=80'); background-size: cover; background-position: center;">
+                        <div class="absolute inset-0 bg-black/20 rounded-2xl"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/20 rounded-2xl"></div>
+                        <div class="relative w-14 h-14 rounded-xl overflow-hidden border border-white/20">
+                            <!-- Placeholder for icon or additional element -->
                         </div>
-                        <div>
+                        <div class="relative">
                             <p class="text-sm text-blue-200 uppercase tracking-wide font-semibold">Instant Rewards</p>
                             <p class="text-white font-semibold">$COURTESY earned in real time</p>
                         </div>
@@ -127,7 +131,7 @@
                         <div class="flex items-center gap-3">
                             <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=160&q=80" alt="Courtesy Chain app preview" class="w-12 h-12 rounded-xl object-cover">
                             <div>
-                                <p class="text-xs uppercase tracking-wide text-primary-700 font-semibold">App Preview</p>
+                                <p class="text-xs uppercase tracking-wide text-primary-200 font-semibold">App Preview</p>
                                 <p class="text-sm text-secondary-700 font-semibold">Drive score + rewards</p>
                             </div>
                         </div>
@@ -135,13 +139,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Elegant scroll indicator -->
-    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div class="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center p-1">
-            <div class="w-1 h-3 bg-white/60 rounded-full animate-pulse"></div>
         </div>
     </div>
 </section>
@@ -242,15 +239,18 @@
         <!-- Process Flow -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <!-- Step 1 -->
-            <div class="relative bg-white rounded-2xl p-8 shadow-lg border-2 border-primary-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-on-scroll overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center opacity-25" style="background-image: url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/80 to-white"></div>
-                <div class="absolute -top-6 left-8 w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                    1
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-primary-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-on-scroll overflow-hidden">
+                <!-- Top section with photographic background -->
+                <div class="h-48 bg-cover bg-center relative rounded-t-2xl" style="background-image: url('https://res.cloudinary.com/djog95pdd/image/upload/v1770284106/ideogram-v3.0_Modern_smartphone_in_car_dashboard_holder_displaying_telematics_app_interface_wi-0_cuhflu.png');">
+                    <div class="absolute inset-0 bg-black/30 rounded-t-2xl"></div>
+                    <div class="absolute top-4 left-4 w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        1
+                    </div>
                 </div>
-                <div class="relative mt-6 space-y-4">
+                <!-- Bottom section with clean white area -->
+                <div class="p-6 bg-white rounded-b-2xl">
                     <h3 class="text-xl font-bold text-secondary-900">Drive with App</h3>
-                    <p class="text-secondary-600 leading-relaxed">
+                    <p class="text-secondary-600 leading-relaxed mt-2">
                         Your smartphone captures driving data using GPS, accelerometer, and telematics—completely privacy-protected
                     </p>
                     <!-- Suggested: Replace with a polished app UI mockup on a phone, 200x200px -->
@@ -258,15 +258,18 @@
             </div>
 
             <!-- Step 2 -->
-            <div class="relative bg-white rounded-2xl p-8 shadow-lg border-2 border-primary-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-on-scroll delay-100 overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center opacity-25" style="background-image: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/80 to-white"></div>
-                <div class="absolute -top-6 left-8 w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                    2
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-primary-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-on-scroll delay-100 overflow-hidden">
+                <!-- Top section with photographic background -->
+                <div class="h-48 bg-cover bg-center relative rounded-t-2xl" style="background-image: url('https://res.cloudinary.com/djog95pdd/image/upload/v1770284097/ideogram-v3.0_Futuristic_AI_dashboard_interface_analyzing_driving_behavior_in_real-time._Holog-0_yatjzt.png');">
+                    <div class="absolute inset-0 bg-black/30 rounded-t-2xl"></div>
+                    <div class="absolute top-4 left-4 w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        2
+                    </div>
                 </div>
-                <div class="relative mt-6 space-y-4">
+                <!-- Bottom section with clean white area -->
+                <div class="p-6 bg-white rounded-b-2xl">
                     <h3 class="text-xl font-bold text-secondary-900">AI Analyzes</h3>
-                    <p class="text-secondary-600 leading-relaxed">
+                    <p class="text-secondary-600 leading-relaxed mt-2">
                         Advanced AI verifies courteous acts: yielding, smooth braking, safe following distance, and lawful speeds
                     </p>
                     <!-- Suggested: Replace with an AI dashboard visualization or neural network illustration, 200x200px -->
@@ -274,15 +277,18 @@
             </div>
 
             <!-- Step 3 -->
-            <div class="relative bg-white rounded-2xl p-8 shadow-lg border-2 border-primary-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-on-scroll delay-200 overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center opacity-25" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/80 to-white"></div>
-                <div class="absolute -top-6 left-8 w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                    3
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-primary-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-on-scroll delay-200 overflow-hidden">
+                <!-- Top section with photographic background -->
+                <div class="h-48 bg-cover bg-center relative rounded-t-2xl" style="background-image: url('https://res.cloudinary.com/djog95pdd/image/upload/v1770284099/lucid-origin_3D_visualization_of_blockchain_network_with_glowing_purple_and_blue_connected_bl-0_upakji.jpg');">
+                    <div class="absolute inset-0 bg-black/30 rounded-t-2xl"></div>
+                    <div class="absolute top-4 left-4 w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        3
+                    </div>
                 </div>
-                <div class="relative mt-6 space-y-4">
+                <!-- Bottom section with clean white area -->
+                <div class="p-6 bg-white rounded-b-2xl">
                     <h3 class="text-xl font-bold text-secondary-900">Blockchain Validates</h3>
-                    <p class="text-secondary-600 leading-relaxed">
+                    <p class="text-secondary-600 leading-relaxed mt-2">
                         Proof-of-Safe-Driving validators confirm AI signatures on-chain, creating an immutable record of good behavior
                     </p>
                     <!-- Suggested: Replace with a blockchain network visualization, 200x200px -->
@@ -290,15 +296,18 @@
             </div>
 
             <!-- Step 4 -->
-            <div class="relative bg-white rounded-2xl p-8 shadow-lg border-2 border-primary-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-on-scroll delay-300 overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center opacity-25" style="background-image: url('https://images.unsplash.com/photo-1509017174183-0b7e0278f1ec?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/80 to-white"></div>
-                <div class="absolute -top-6 left-8 w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                    4
+            <div class="bg-white rounded-2xl shadow-lg border-2 border-accent-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-on-scroll delay-300 overflow-hidden">
+                <!-- Top section with photographic background -->
+                <div class="h-48 bg-cover bg-center relative rounded-t-2xl" style="background-image: url('https://res.cloudinary.com/djog95pdd/image/upload/v1770284107/ideogram-v3.0_Digital_wallet_interface_with_COURTESY_tokens_flowing_in_with_golden_particle_ef-0_jnvgst.png');">
+                    <div class="absolute inset-0 bg-black/30 rounded-t-2xl"></div>
+                    <div class="absolute top-4 left-4 w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        4
+                    </div>
                 </div>
-                <div class="relative mt-6 space-y-4">
+                <!-- Bottom section with clean white area -->
+                <div class="p-6 bg-white rounded-b-2xl">
                     <h3 class="text-xl font-bold text-secondary-900">Earn Rewards</h3>
-                    <p class="text-secondary-600 leading-relaxed">
+                    <p class="text-secondary-600 leading-relaxed mt-2">
                         Smart contracts instantly mint and distribute $COURTESY tokens directly to your wallet—real rewards for real kindness
                     </p>
                     <!-- Suggested: Replace with token wallet or rewards animation still, 200x200px -->
@@ -337,7 +346,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center">
-                    <img src="https://via.placeholder.com/500x400/1e3a8a/ffffff?text=PoSD+Architecture" alt="Proof-of-Safe-Driving Architecture" class="rounded-2xl shadow-2xl border-4 border-white/20">
+                    <img src="https://res.cloudinary.com/djog95pdd/image/upload/v1769943809/image-11_nuyzgv.jpg" alt="Proof-of-Safe-Driving Architecture" class="rounded-2xl shadow-2xl border-4 border-white/20">
                     <!-- Suggested: Infographic showing PoSD flow: Phone → AI → Validators → Smart Contract → Rewards, 600x500px, professional design -->
                 </div>
             </div>

@@ -54,7 +54,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-muted-foreground">Copyright 2025 Courtesy Chain. All rights reserved.</p>
+          <p className="text-xs text-muted-foreground">Copyright 2026 Courtesy Chain. All rights reserved.</p>
           <p className="text-xs text-muted-foreground">Courtesy Pays. Drive Kind. Get Rewarded.</p>
         </div>
       </div>

@@ -11,12 +11,17 @@ from .forms import ContactForm
 
 
 def spa_entry(request):
-    index_path = Path(settings.BASE_DIR) / "courtesy_ui" / "dist" / "index.html"
-    if not index_path.exists():
+    candidate_paths = [
+        Path(settings.BASE_DIR) / "courtesy_ui" / "dist" / "index.html",
+        Path(getattr(settings, "STATIC_ROOT", "")) / "index.html",
+    ]
+    index_path = next((p for p in candidate_paths if p and p.exists()), None)
+
+    if index_path is None:
         return JsonResponse(
             {
                 "error": "Frontend build not found.",
-                "hint": "Run `npm install && npm run build` inside courtesy_ui before serving the SPA from Django.",
+                "hint": "Run frontend build and collectstatic during deploy (see build.sh and Render build command).",
             },
             status=503,
         )

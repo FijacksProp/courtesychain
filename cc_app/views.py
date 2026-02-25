@@ -1,30 +1,75 @@
-from django.shortcuts import render, redirect
+import json
+from pathlib import Path
+
+from django.http import HttpResponse, JsonResponse
 from django.core.mail import send_mail
 from django.conf import settings
-from django.contrib import messages
+from django.views.decorators.http import require_GET, require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import ContactForm
 
-# Create your views here.
 
-def home(request):
-    return render(request, 'home.html')
+def spa_entry(request):
+    index_path = Path(settings.BASE_DIR) / "courtesy_ui" / "dist" / "index.html"
+    if not index_path.exists():
+        return JsonResponse(
+            {
+                "error": "Frontend build not found.",
+                "hint": "Run `npm install && npm run build` inside courtesy_ui before serving the SPA from Django.",
+            },
+            status=503,
+        )
 
-def about(request):
-    return render(request, 'about.html')
+    return HttpResponse(index_path.read_text(encoding="utf-8"), content_type="text/html")
 
-def how_it_works(request):
-    return render(request, 'how_it_works.html')
 
-def contact(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            # Save to database
-            contact = form.save()
+@require_GET
+def api_health(request):
+    return JsonResponse({"status": "ok"})
 
-            # Send email notification
-            subject = f"New Contact Form Submission: {contact.subject}"
-            message = f"""
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def api_contact(request):
+    try:
+        payload = json.loads(request.body or "{}")
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON payload."}, status=400)
+    if not isinstance(payload, dict):
+        return JsonResponse({"error": "Invalid JSON payload."}, status=400)
+
+    category_map = {
+        "General Inquiry": "general",
+        "Partnership Opportunity": "partnership",
+        "Technical Support": "support",
+        "Media & Press": "media",
+        "Investment Inquiry": "investment",
+        "Other": "other",
+    }
+
+    form_data = {
+        "name": (payload.get("name") or "").strip(),
+        "email": (payload.get("email") or "").strip(),
+        "category": category_map.get(
+            payload.get("category") or payload.get("type"),
+            payload.get("category") or payload.get("type"),
+        ) or "general",
+        "subject": (payload.get("subject") or "").strip(),
+        "message": (payload.get("message") or "").strip(),
+    }
+
+    form = ContactForm(form_data)
+    if not form.is_valid():
+        return JsonResponse(
+            {"error": "Please correct the highlighted fields.", "fields": form.errors.get_json_data()},
+            status=400,
+        )
+
+    contact = form.save()
+
+    subject = f"New Contact Form Submission: {contact.subject}"
+    message = f"""
 New contact form submission received:
 
 Name: {contact.name}
@@ -39,25 +84,22 @@ Message:
 This message was sent from the CourtesyChain contact form.
 """
 
-            try:
-                send_mail(
-                    subject,
-                    message,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [settings.CONTACT_EMAIL_RECIPIENT],
-                    fail_silently=False,
-                )
-                messages.success(request, 'Thank you for your message! We\'ll get back to you within 24 hours.')
-            except Exception as e:
-                # Log the error but still save to database
-                print(f"Email sending failed: {e}")
-                messages.warning(request, 'Your message was saved, but there was an issue sending the email. We\'ll still get back to you!')
+    email_sent = True
+    try:
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.CONTACT_EMAIL_RECIPIENT],
+            fail_silently=False,
+        )
+    except Exception:
+        email_sent = False
 
-            return redirect('contact')
-    else:
-        form = ContactForm()
-
-    return render(request, 'contact.html', {'form': form})
-
-def whitepaper(request):
-    return render(request, 'whitepaper_clean.html')
+    return JsonResponse(
+        {
+            "message": "Thank you for your message! We'll get back to you within 24 hours.",
+            "email_sent": email_sent,
+        },
+        status=201,
+    )

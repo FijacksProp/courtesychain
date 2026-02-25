@@ -5,3 +5,10 @@ DEPLOYMENT.md
 TODO.md
 logs/
 *.log
+.venv/
+__pycache__/
+*.pyc
+courtesy_ui/node_modules/
+courtesy_ui/dist/
+staticfiles/
+TODO.md

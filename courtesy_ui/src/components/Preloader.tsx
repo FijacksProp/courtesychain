@@ -8,7 +8,7 @@ type PreloaderProps = {
   onDone: () => void;
 };
 
-const PRELOADER_VISIBLE_MS = 3200;
+const PRELOADER_VISIBLE_MS = 6500;
 const PRELOADER_FADE_MS = 450;
 
 const Preloader = ({ active, onDone }: PreloaderProps) => {

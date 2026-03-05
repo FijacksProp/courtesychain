@@ -44,7 +44,7 @@ const Whitepaper = () => (
             Courtesy Chain <span className="gradient-text">Whitepaper</span>
           </h1>
           <p className="text-muted-foreground mb-2">Version 1.5 — January 2026</p>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">Revolutionizing Road Safety Through Blockchain Rewards</p>
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto">Behavioral Oracle Infrastructure for Insurance and Logistics Risk Intelligence</p>
         </SectionReveal>
       </div>
     </section>
@@ -76,8 +76,8 @@ const Whitepaper = () => (
           {/* Content */}
           <div>
             <Section id="abstract" num="1" title="Abstract">
-              <p>Courtesy Chain is a next-generation blockchain ecosystem that transforms courtesy behind the wheel into measurable digital value. By merging a new consensus model—Proof-of-Safe-Driving (PoSD)—with Proof-of-Stake (PoS) and an AI Verification Layer (AIVL), Courtesy Chain rewards verified acts of kindness and safety on the road.</p>
-              <p>The network uses smartphone telematics, AI-based behavior analysis, and on-chain validation to create a transparent, low-energy system that honors responsibility and reduces preventable accidents.</p>
+              <p>Courtesy Chain is a behavioral oracle that converts low-risk telematics behavior into tokenized, verifiable intelligence for insurance and logistics markets. By combining Proof-of-Safe-Driving (PoSD), Proof-of-Stake (PoS), and an AI Verification Layer (AIVL), the protocol creates auditable behavioral data rails for institutional decision-making.</p>
+              <p>The network uses smartphone telematics, AI-driven risk classification, and on-chain validation to deliver privacy-preserving signals that support better pricing, safer operations, and accountable incentives.</p>
             </Section>
 
             <Section id="introduction" num="2" title="Introduction / Origin Story">
@@ -268,7 +268,7 @@ const Whitepaper = () => (
             </Section>
 
             <Section id="conclusion" num="16" title="Conclusion">
-              <p>Courtesy Chain is not just a blockchain—it is a movement. It transforms courtesy into currency, safety into community, and data into trust.</p>
+              <p>Courtesy Chain is not just a token ecosystem; it is a behavioral oracle infrastructure. It transforms low-risk telematics data into trusted digital assets for insurers, logistics operators, and transportation stakeholders.</p>
               <p>The $COURTESY token is a utility asset within this ecosystem. It is not a security or investment vehicle. All features, timelines, and allocations are subject to change based on development progress, regulatory guidance, and community input.</p>
               <p className="text-primary font-semibold italic mt-4">Courtesy Pays. Drive Kind. Get Rewarded.</p>
             </Section>
@@ -286,3 +286,4 @@ const Whitepaper = () => (
 );
 
 export default Whitepaper;
+

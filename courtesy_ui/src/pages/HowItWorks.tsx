@@ -1,7 +1,7 @@
 import { ArrowRight, Download, Smartphone, Wallet, Car, Coins, ChevronRight, Shield, Zap, Lock, Leaf } from "lucide-react";
 import { Link } from "react-router-dom";
 import SectionReveal from "@/components/SectionReveal";
-import appMockup from "@/assets/app-mockup.webp";
+import phase2InterfacePrototypes from "@/assets/phase-2-interface-prototypes.webp";
 import blockchainImg from "@/assets/blockchain-network.webp";
 
 const gettingStarted = [
@@ -44,7 +44,7 @@ const HowItWorks = () => (
             How <span className="gradient-text">Courtesy Chain</span> Works
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Your complete guide to earning $COURTESY tokens through courteous driving and blockchain rewards.
+            A practical overview of how Courtesy Chain converts low-risk telematics behavior into tokenized intelligence for insurance and logistics use cases.
           </p>
         </SectionReveal>
       </div>
@@ -79,7 +79,7 @@ const HowItWorks = () => (
       </div>
     </section>
 
-    {/* App Mockup */}
+    {/* Phase 2 Interface Prototypes */}
     <section className="section-padding bg-card/30">
       <div className="container-narrow mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -87,7 +87,7 @@ const HowItWorks = () => (
             <div className="flex justify-center">
               <div className="relative">
                 <div className="absolute -inset-8 rounded-full bg-primary/10 blur-3xl animate-pulse-glow" />
-                <img src={appMockup} alt="Courtesy Chain App" className="relative w-64 rounded-2xl shadow-2xl" />
+                <img src={phase2InterfacePrototypes} alt="Courtesy Chain App" className="relative w-64 rounded-2xl shadow-2xl" />
               </div>
             </div>
           </SectionReveal>
@@ -95,7 +95,7 @@ const HowItWorks = () => (
             <span className="text-xs font-semibold text-primary uppercase tracking-widest">The App</span>
             <h2 className="text-3xl font-heading font-bold mt-3 mb-6">Your Driving Companion</h2>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              The Courtesy Chain mobile app uses your smartphone's GPS, accelerometer, and telematics to capture driving data in real-time. All data is privacy-protected and processed through our AI Verification Layer.
+              The Courtesy Chain mobile app captures smartphone telematics in real time and feeds a behavioral oracle pipeline that classifies low-risk signals, protects privacy, and publishes trusted outputs on-chain.
             </p>
             <div className="space-y-3">
               {["Real-time courtesy score tracking", "Integrated Solana wallet", "Trip history & analytics", "Community leaderboards"].map((f, i) => (

@@ -74,7 +74,7 @@ const Index = () => (
               Get Rewarded.
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-lg">
-              The world's first blockchain ecosystem that transforms safe and courteous driving into measurable digital value. Join the movement revolutionizing road safety through AI-verified rewards.
+              Courtesy Chain operates as a behavioral oracle, converting low-risk telematics signals into verifiable on-chain intelligence for insurance and logistics stakeholders.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
@@ -121,7 +121,7 @@ const Index = () => (
           <div className="text-center mb-16">
             <span className="text-xs font-semibold text-primary uppercase tracking-widest">Why Courtesy Chain</span>
             <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4">Built for Trust, Speed & Privacy</h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">A revolutionary blend of AI verification, blockchain security, and real-world rewards.</p>
+            <p className="text-muted-foreground max-w-xl mx-auto">An institutional-grade stack combining AI validation, blockchain attestations, and low-risk telematics intelligence.</p>
           </div>
         </SectionReveal>
         <div className="grid md:grid-cols-3 gap-6">
@@ -313,7 +313,7 @@ const Index = () => (
           <span className="text-xs font-semibold text-primary uppercase tracking-widest">Join the Movement</span>
           <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4">Ready to Make Roads Safer?</h2>
           <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-            Join thousands of drivers already earning $COURTESY tokens for safe, courteous behavior. Be part of the blockchain revolution transforming road safety.
+            Join the network building a behavioral data layer that helps insurers and logistics operators price risk with greater precision and transparency.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link to="/how-it-works" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity">

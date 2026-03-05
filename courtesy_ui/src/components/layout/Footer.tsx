@@ -17,7 +17,7 @@ const Footer = () => {
               <span className="font-heading font-bold text-foreground">Courtesy Chain</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              The world's first blockchain ecosystem transforming safe driving into measurable digital value.
+              A behavioral oracle platform that tokenizes low-risk telematics intelligence for insurers and logistics operators.
             </p>
           </div>
           <div>

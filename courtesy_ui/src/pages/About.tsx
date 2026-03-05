@@ -25,7 +25,7 @@ const About = () => (
             <span className="gradient-text">Built with Purpose</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Courtesy Chain transforms a family's devastating experience into a global movement for safer roads. Our story is one of resilience, faith, and innovation.
+            Courtesy Chain has evolved into a behavioral oracle platform that converts low-risk telematics activity into trusted digital signals for insurance and logistics markets.
           </p>
         </SectionReveal>
       </div>
@@ -79,7 +79,7 @@ const About = () => (
               </div>
               <h3 className="font-heading font-bold text-xl mb-3">Mission</h3>
               <p className="text-muted-foreground leading-relaxed">
-                To make courtesy measurable and rewarding—saving lives through kindness, technology, and accountability. We believe that when good driving is incentivized through blockchain-verified rewards, roads become safer for everyone.
+                To operationalize low-risk driving behavior as verifiable intelligence, enabling insurers and logistics operators to make better decisions while improving safety outcomes.
               </p>
             </div>
           </SectionReveal>
@@ -90,7 +90,7 @@ const About = () => (
               </div>
               <h3 className="font-heading font-bold text-xl mb-3">Vision</h3>
               <p className="text-muted-foreground leading-relaxed">
-                A world where every driver becomes a living node of kindness—connected, verified, and rewarded for contributing to safer shared roads. We envision a behavioral economy where courtesy becomes the most valuable currency on the road.
+                A trusted behavioral data infrastructure where telematics-derived risk signals are tokenized, auditable, and actionable across transportation, insurance, and fleet ecosystems.
               </p>
             </div>
           </SectionReveal>
@@ -133,7 +133,7 @@ const About = () => (
         <SectionReveal>
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">Changing Lives, One Drive at a Time</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed">
-            Courtesy Chain creates a new behavioral economy based on kindness. When one good driver acts courteously, it affects everyone on the road. Accident reduction through instant behavior feedback. Insurers gain fair risk metrics. Families feel safer knowing data protects loved ones.
+            Courtesy Chain delivers a behavioral intelligence layer that translates low-risk driving patterns into transparent, tokenized metrics. The result is clearer risk pricing for insurers, stronger operational controls for logistics fleets, and safer roads for communities.
           </p>
           <blockquote className="text-lg italic text-muted-foreground max-w-xl mx-auto mb-8">
             "One good driver affects everyone on the road. When courtesy becomes currency, safety becomes inevitable."
@@ -149,3 +149,4 @@ const About = () => (
 );
 
 export default About;
+

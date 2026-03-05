@@ -27,9 +27,9 @@ class ContactAdmin(admin.ModelAdmin):
 
 @admin.register(InvestorRequest)
 class InvestorRequestAdmin(admin.ModelAdmin):
-    list_display = ['email', 'company_or_representative', 'is_verified', 'created_at']
+    list_display = ['email', 'company_or_representative', 'is_verified', 'token_expires_at', 'created_at']
     list_filter = ['is_verified', 'created_at']
     search_fields = ['email', 'company_or_representative']
-    readonly_fields = ['created_at']
+    readonly_fields = ['created_at', 'access_token', 'token_expires_at']
     list_editable = ['is_verified']
     ordering = ['-created_at']

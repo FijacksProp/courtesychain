@@ -98,13 +98,6 @@ const Navbar = () => {
                   {l.label}
                 </Link>
               ))}
-              <Link
-                to="/investors/access"
-                onClick={() => setOpen(false)}
-                className="block px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Investor Access
-              </Link>
             </div>
           </motion.div>
         )}

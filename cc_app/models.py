@@ -31,6 +31,8 @@ class InvestorRequest(models.Model):
     email = models.EmailField(unique=True)
     company_or_representative = models.CharField(max_length=180)
     is_verified = models.BooleanField(default=False)
+    access_token = models.CharField(max_length=6, blank=True, default='')
+    token_expires_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

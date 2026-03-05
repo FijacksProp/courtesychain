@@ -8,6 +8,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import ContactForm
+from .models import InvestorRequest
 
 
 def spa_entry(request):
@@ -32,6 +33,33 @@ def spa_entry(request):
 @require_GET
 def api_health(request):
     return JsonResponse({"status": "ok"})
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def api_investor_request(request):
+    try:
+        payload = json.loads(request.body or "{}")
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON payload."}, status=400)
+    if not isinstance(payload, dict):
+        return JsonResponse({"error": "Invalid JSON payload."}, status=400)
+
+    email = (payload.get("email") or "").strip().lower()
+    company_or_representative = (payload.get("company_or_representative") or "").strip()
+
+    if not email or not company_or_representative:
+        return JsonResponse(
+            {"error": "Email and company/representative are required."},
+            status=400,
+        )
+
+    InvestorRequest.objects.update_or_create(
+        email=email,
+        defaults={"company_or_representative": company_or_representative},
+    )
+
+    return JsonResponse({"message": "Request saved."}, status=201)
 
 
 @csrf_exempt

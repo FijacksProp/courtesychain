@@ -15,6 +15,7 @@ import About from "./pages/About";
 import HowItWorks from "./pages/HowItWorks";
 import Whitepaper from "./pages/Whitepaper";
 import Contact from "./pages/Contact";
+import InvestorAccess from "./pages/InvestorAccess";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -61,6 +62,7 @@ const App = () => {
                 <Route path="/how-it-works" element={<HowItWorks />} />
                 <Route path="/whitepaper" element={<Whitepaper />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/investors/access" element={<InvestorAccess />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

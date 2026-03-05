@@ -25,3 +25,16 @@ class Contact(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+
+class InvestorRequest(models.Model):
+    email = models.EmailField(unique=True)
+    company_or_representative = models.CharField(max_length=180)
+    is_verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        ordering = ['-created_at']

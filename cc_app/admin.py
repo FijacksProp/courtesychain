@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact
+from .models import Contact, InvestorRequest
 
 # Register your models here.
 
@@ -23,3 +23,13 @@ class ContactAdmin(admin.ModelAdmin):
             'fields': ('is_read', 'created_at')
         }),
     )
+
+
+@admin.register(InvestorRequest)
+class InvestorRequestAdmin(admin.ModelAdmin):
+    list_display = ['email', 'company_or_representative', 'is_verified', 'created_at']
+    list_filter = ['is_verified', 'created_at']
+    search_fields = ['email', 'company_or_representative']
+    readonly_fields = ['created_at']
+    list_editable = ['is_verified']
+    ordering = ['-created_at']

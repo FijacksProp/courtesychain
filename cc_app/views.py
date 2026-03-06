@@ -1,4 +1,5 @@
 import json
+import logging
 import secrets
 from datetime import timedelta
 from pathlib import Path
@@ -12,6 +13,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .forms import ContactForm
 from .models import InvestorRequest
+
+logger = logging.getLogger(__name__)
 
 INVESTOR_SESSION_KEY = "investor_email"
 INVESTOR_TOKEN_EXPIRY_MINUTES = 10
@@ -146,7 +149,14 @@ def api_investor_request_token(request):
 
     try:
         _send_investor_token_email(email, investor.access_token)
-    except Exception:
+    except Exception as exc:
+        # Avoid storing a valid token if email delivery fails.
+        investor.access_token = ""
+        investor.token_expires_at = None
+        investor.save(update_fields=["access_token", "token_expires_at"])
+        logger.exception("Investor token email send failed for %s", email)
+        if settings.DEBUG:
+            return JsonResponse({"error": f"Unable to send token email right now: {exc}"}, status=502)
         return JsonResponse({"error": "Unable to send token email right now."}, status=502)
 
     return JsonResponse(

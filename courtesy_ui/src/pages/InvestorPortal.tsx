@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SectionReveal from "@/components/SectionReveal";
 import { ArrowRight } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 
 const PITCH_SLIDES = [
   {
@@ -89,6 +90,8 @@ const InvestorPortal = () => {
   const [companyOrRepresentative, setCompanyOrRepresentative] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "";
 
   useEffect(() => {
@@ -126,22 +129,32 @@ const InvestorPortal = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#040a0f] text-[#ecfff5]">
-      <section className="relative overflow-hidden border-b border-[#00ff88]/20">
+    <div className={`min-h-screen transition-colors ${isDark ? "bg-[#040a0f] text-[#ecfff5]" : "bg-[#f5faf7] text-[#0b1e18]"}`}>
+      <section className={`relative overflow-hidden border-b ${isDark ? "border-[#00ff88]/20" : "border-[#00a866]/25"}`}>
         <div
-          className="absolute inset-0 opacity-30 animate-investor-grid"
+          className={`absolute inset-0 animate-investor-grid ${isDark ? "opacity-30" : "opacity-20"}`}
           style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(0,255,136,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(245,166,35,0.09) 1px, transparent 1px)",
+            backgroundImage: isDark
+              ? "linear-gradient(to right, rgba(0,255,136,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(245,166,35,0.09) 1px, transparent 1px)"
+              : "linear-gradient(to right, rgba(0,168,102,0.14) 1px, transparent 1px), linear-gradient(to bottom, rgba(245,166,35,0.10) 1px, transparent 1px)",
             backgroundSize: "40px 40px, 40px 40px",
           }}
         />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(0,255,136,0.18),transparent_35%),radial-gradient(circle_at_85%_70%,rgba(245,166,35,0.14),transparent_35%)]" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: isDark
+              ? "radial-gradient(circle at 15% 20%, rgba(0,255,136,0.18), transparent 35%), radial-gradient(circle at 85% 70%, rgba(245,166,35,0.14), transparent 35%)"
+              : "radial-gradient(circle at 15% 20%, rgba(0,168,102,0.16), transparent 36%), radial-gradient(circle at 85% 70%, rgba(245,166,35,0.18), transparent 36%)",
+          }}
+        />
         <div className="pointer-events-none absolute inset-0">
           {particles.map((particle) => (
             <span
               key={particle.id}
-              className="absolute bottom-[-10%] h-1.5 w-1.5 rounded-full bg-[#00ff88]/45 animate-[particle-float_12s_linear_infinite]"
+              className={`absolute bottom-[-10%] h-1.5 w-1.5 rounded-full animate-[particle-float_12s_linear_infinite] ${
+                isDark ? "bg-[#00ff88]/45" : "bg-[#00a866]/35"
+              }`}
               style={{ left: particle.left, animationDelay: particle.delay }}
             />
           ))}
@@ -150,13 +163,23 @@ const InvestorPortal = () => {
         <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-6 pt-28 pb-24 md:pt-36 md:pb-32">
           <SectionReveal>
             <p className="text-xs tracking-[0.22em] uppercase text-[#f5a623] mb-5">Investor Intelligence Deck</p>
-            <h1 className="text-4xl md:text-6xl leading-tight font-black [font-family:'Orbitron',sans-serif] text-[#ecfff5] max-w-4xl">
+            <h1
+              className={`text-4xl md:text-6xl leading-tight font-black [font-family:'Orbitron',sans-serif] max-w-4xl ${
+                isDark ? "text-[#ecfff5]" : "text-[#0b1e18]"
+              }`}
+            >
               Courtesy Chain ($CCB): The Protocol of Politeness
             </h1>
-            <p className="mt-6 text-lg md:text-2xl text-[#b3d9c6] max-w-3xl">
+            <p className={`mt-6 text-lg md:text-2xl max-w-3xl ${isDark ? "text-[#b3d9c6]" : "text-[#2f6050]"}`}>
               Tokenizing Road Safety through Behavioral Infrastructure
             </p>
-            <div className="mt-10 inline-flex items-center gap-2 rounded-full border border-[#00ff88]/40 bg-[#00ff88]/10 px-4 py-2 text-xs text-[#d7ffe9]">
+            <div
+              className={`mt-10 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs ${
+                isDark
+                  ? "border border-[#00ff88]/40 bg-[#00ff88]/10 text-[#d7ffe9]"
+                  : "border border-[#00a866]/40 bg-[#00a866]/10 text-[#16503f]"
+              }`}
+            >
               Session active for: {email}
             </div>
           </SectionReveal>
@@ -167,11 +190,18 @@ const InvestorPortal = () => {
         <div className="space-y-6">
           {PITCH_SLIDES.map((slide, index) => (
             <SectionReveal key={slide.title}>
-              <article className="rounded-2xl border border-[#00ff88]/20 bg-[#071118]/90 shadow-[0_0_40px_rgba(0,255,136,0.08)] p-6 md:p-9">
-                <p className="text-xs uppercase tracking-[0.2em] text-[#00ff88]">{`Pitch Slide ${index + 1}`}</p>
-                <h2 className="mt-3 text-2xl md:text-3xl [font-family:'Orbitron',sans-serif] text-[#ecfff5]">{slide.title}</h2>
+              <article
+                className={`rounded-2xl border p-6 md:p-9 ${
+                  isDark
+                    ? "border-[#00ff88]/20 bg-[#071118]/90 shadow-[0_0_40px_rgba(0,255,136,0.08)]"
+                    : "border-[#00a866]/20 bg-[#ffffff]/90 shadow-[0_0_26px_rgba(0,168,102,0.08)]"
+                }`}
+              >
+                <h2 className={`mt-3 text-2xl md:text-3xl [font-family:'Orbitron',sans-serif] ${isDark ? "text-[#ecfff5]" : "text-[#0f2a1f]"}`}>
+                  {slide.title}
+                </h2>
                 <p className="mt-4 text-[#f5a623] text-sm md:text-base">{slide.hook}</p>
-                <p className="mt-4 text-[#c8e6d7] leading-relaxed text-sm md:text-base">{slide.content}</p>
+                <p className={`mt-4 leading-relaxed text-sm md:text-base ${isDark ? "text-[#c8e6d7]" : "text-[#365c4f]"}`}>{slide.content}</p>
 
                 {index === 4 && (
                   <div className="mt-7">
@@ -189,7 +219,11 @@ const InvestorPortal = () => {
                   <div className="mt-7">
                     <Link
                       to="/contact"
-                      className="inline-flex items-center gap-2 rounded-lg border border-[#f5a623]/60 text-[#f6c46a] px-5 py-3 font-semibold hover:bg-[#f5a623]/10 transition-colors"
+                      className={`inline-flex items-center gap-2 rounded-lg border px-5 py-3 font-semibold transition-colors ${
+                        isDark
+                          ? "border-[#f5a623]/60 text-[#f6c46a] hover:bg-[#f5a623]/10"
+                          : "border-[#d88d14]/70 text-[#b87308] hover:bg-[#f5a623]/12"
+                      }`}
                     >
                       Join the Movement — Contact Us
                       <ArrowRight size={16} />
@@ -204,15 +238,18 @@ const InvestorPortal = () => {
 
       <section className="mx-auto max-w-6xl px-4 md:px-6 pb-20 md:pb-28">
         <SectionReveal>
-          <div className="rounded-2xl border border-[#f5a623]/25 bg-[#09131a] p-6 md:p-9">
-            <h3 className="text-2xl md:text-4xl [font-family:'Orbitron',sans-serif] text-[#ecfff5]">
+          <div className={`rounded-2xl border p-6 md:p-9 ${isDark ? "border-[#f5a623]/25 bg-[#09131a]" : "border-[#d88d14]/30 bg-[#ffffff]"}`}>
+            <h3 className={`text-2xl md:text-4xl [font-family:'Orbitron',sans-serif] ${isDark ? "text-[#ecfff5]" : "text-[#0f2a1f]"}`}>
               Transforming Behavior into a Real-World Asset (RWA)
             </h3>
             <div className="mt-8 grid md:grid-cols-3 gap-5">
               {VALUE_CARDS.map((card) => (
-                <article key={card.title} className="rounded-xl border border-[#00ff88]/20 bg-[#0c1821] p-5">
+                <article
+                  key={card.title}
+                  className={`rounded-xl border p-5 ${isDark ? "border-[#00ff88]/20 bg-[#0c1821]" : "border-[#00a866]/20 bg-[#f6fffb]"}`}
+                >
                   <h4 className="text-lg [font-family:'Orbitron',sans-serif] text-[#00ff88]">{card.title}</h4>
-                  <p className="mt-3 text-sm leading-relaxed text-[#c8e6d7]">{card.body}</p>
+                  <p className={`mt-3 text-sm leading-relaxed ${isDark ? "text-[#c8e6d7]" : "text-[#365c4f]"}`}>{card.body}</p>
                 </article>
               ))}
             </div>
@@ -221,7 +258,11 @@ const InvestorPortal = () => {
       </section>
 
       <div className="mx-auto max-w-6xl px-4 md:px-6 pb-14">
-        <div className="rounded-lg border border-[#1d2e39] bg-[#061018] px-4 py-3 text-xs text-[#86a79b]">
+        <div
+          className={`rounded-lg border px-4 py-3 text-xs ${
+            isDark ? "border-[#1d2e39] bg-[#061018] text-[#86a79b]" : "border-[#cfe8dc] bg-[#eef8f2] text-[#4e7365]"
+          }`}
+        >
           <p>Investor email: {email}</p>
           <p>Company/Rep: {companyOrRepresentative}</p>
         </div>

@@ -5,61 +5,61 @@ import { ArrowRight } from "lucide-react";
 
 const PITCH_SLIDES = [
   {
-    title: "Slide 1 - The Vision",
+    title: "The Vision",
     hook: "A behavioral data protocol purpose-built for high-consequence mobility systems.",
     content:
       "CourtesyChain operates as a Behavioral Oracle that tokenizes low-risk telematics data for insurance and logistics markets, converting safe conduct into verifiable digital value.",
   },
   {
-    title: "Slide 2 - The Problem ($518B Gap)",
+    title: "The Problem ($518B Gap)",
     hook: "Risk models detect harm, but they rarely price courtesy.",
     content:
       "Global losses from preventable road incidents remain enormous. Existing infrastructure penalizes adverse behavior after the fact while failing to reward consistently safe behavior. Meanwhile, mobility data stays fragmented, weakly validated, and commercially underleveraged.",
   },
   {
-    title: "Slide 3 - The Solution (PoSD)",
+    title: "The Solution (PoSD)",
     hook: "Proof-of-Safe-Driving transforms conduct into consensus.",
     content:
       "CourtesyChain introduces the Proof-of-Safe-Driving model, where verified courtesy events become measurable units of trust. This establishes the first road-native Reputation Asset with on-chain integrity.",
   },
   {
-    title: "Slide 4 - Technical Edge (AIVL)",
+    title: "Technical Edge (AIVL)",
     hook: "Raw signals only matter when they survive adversarial validation.",
     content:
       "The AI Verification Layer (AIVL) processes telemetry through AI sanitization before on-chain validation. The pipeline addresses garbage-in-garbage-out risk and forms a defensible proprietary moat for institutional deployment.",
   },
   {
-    title: "Slide 5 - The Product (Phase 2 Interface Prototypes)",
+    title: "The Product (Phase 2 Interface Prototypes)",
     hook: "A user experience that makes safety economically visible.",
     content:
       "The mobile product enables participants to track driving reputation, earn $CCB incentives, and observe real-time Community Impact metrics. Safety behavior becomes measurable, intelligible, and rewarding.",
   },
   {
-    title: "Slide 6 - Market Opportunity (RWA & DePIN)",
+    title: "Market Opportunity (RWA & DePIN)",
     hook: "Positioned where physical-world data and tokenized infrastructure converge.",
     content:
       "CourtesyChain sits at the intersection of Real World Assets and DePIN, two rapidly scaling Web3 sectors. The opportunity spans insurance underwriting, logistics optimization, and smart-city data rails with a $100B+ addressable outlook.",
   },
   {
-    title: "Slide 7 - Tokenomics ($CCB)",
+    title: "Tokenomics ($CCB)",
     hook: "From community launch to utility-backed demand.",
     content:
       "$CCB is designed as the utility layer of the protocol. The pump.fun phase established community-led distribution, while future utility is driven by data-access fees, enterprise integrations, and insurance-aligned demand mechanisms.",
   },
   {
-    title: "Slide 8 - Roadmap",
+    title: "Roadmap",
     hook: "Execution cadence is aligned to technical depth and institutional readiness.",
     content:
       "Q4 2025: Community Launch (Complete). Q1 2026: AIVL Technical Specs & Seed Funding (Current). Q2 2026: MVP Beta Testing & Telematics Integration. Q3 2026: Institutional Pilot Programs & Insurance Partnerships.",
   },
   {
-    title: "Slide 9 - Impact (Faith & Sustainability)",
+    title: "Impact (Faith & Sustainability)",
     hook: "Protocol economics in service of human outcomes.",
     content:
       "CourtesyChain is built on purpose and resilience. The mission is not merely software deployment, but measurable reduction of road harm through civil behavior reinforcement. One good driver affects everyone on the road.",
   },
   {
-    title: "Slide 10 - The Ask",
+    title: "The Ask",
     hook: "Capital to accelerate proof into infrastructure.",
     content:
       "Seed funding is allocated to AIVL mainnet engineering, application development, and strategic partnership execution. The objective is to convert validated prototypes into institutional-grade operating rails.",

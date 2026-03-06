@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -162,9 +162,15 @@
   100% { transform: translateY(-10vh) translateX(-10px) scale(0.5); opacity: 0; }
 }
 
+@keyframes investor-grid-drift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 0 80px, 80px 0; }
+}
+
 .animate-gradient { animation: gradient-shift 8s ease infinite; background-size: 200% 200%; }
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-investor-grid { animation: investor-grid-drift 18s linear infinite; }
 
 .cc-preloader {
   position: fixed;

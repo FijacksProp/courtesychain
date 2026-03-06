@@ -17,6 +17,7 @@ import Whitepaper from "./pages/Whitepaper";
 import Contact from "./pages/Contact";
 import InvestorAccess from "./pages/InvestorAccess";
 import InvestorPortal from "./pages/InvestorPortal";
+import InvestorSimulation from "./pages/InvestorSimulation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -65,6 +66,7 @@ const App = () => {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/investors/access" element={<InvestorAccess />} />
                 <Route path="/investors" element={<InvestorPortal />} />
+                <Route path="/investors/simulation" element={<InvestorSimulation />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

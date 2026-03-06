@@ -1,40 +1,33 @@
 import json
-import logging
-import secrets
-from datetime import timedelta
 from pathlib import Path
 
-from django.http import HttpResponse, JsonResponse
-from django.core.mail import send_mail
 from django.conf import settings
+from django.core.mail import send_mail
+from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
-from django.views.decorators.http import require_GET, require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET, require_http_methods
+from django.contrib.auth.hashers import check_password, make_password
 
 from .forms import ContactForm
 from .models import InvestorRequest
 
-logger = logging.getLogger(__name__)
-
 INVESTOR_SESSION_KEY = "investor_email"
-INVESTOR_TOKEN_EXPIRY_MINUTES = 10
+INVESTOR_LAST_ACTIVITY_KEY = "investor_last_activity"
+INVESTOR_IDLE_TIMEOUT_SECONDS = 60 * 60
 
 
-def _generate_access_token():
-    return f"{secrets.randbelow(1000000):06d}"
+def _now_ts():
+    return int(timezone.now().timestamp())
 
 
-def _send_investor_token_email(recipient_email, token):
-    send_mail(
-        "Your CourtesyChain Investor Access Code",
-        (
-            "Your CourtesyChain investor access code is "
-            f"{token}. It expires in {INVESTOR_TOKEN_EXPIRY_MINUTES} minutes."
-        ),
-        settings.DEFAULT_FROM_EMAIL,
-        [recipient_email],
-        fail_silently=False,
-    )
+def _is_password_strong(password):
+    if len(password) < 8:
+        return False
+    has_alpha = any(ch.isalpha() for ch in password)
+    has_digit = any(ch.isdigit() for ch in password)
+    has_symbol = any(not ch.isalnum() for ch in password)
+    return has_alpha and has_digit and has_symbol
 
 
 def spa_entry(request):
@@ -69,9 +62,17 @@ def api_investor_status(request):
 
     investor = InvestorRequest.objects.filter(email=email).first()
     if investor is None:
-        return JsonResponse({"exists": False, "is_verified": False}, status=200)
+        return JsonResponse({"exists": False, "is_verified": False, "has_password": False}, status=200)
 
-    return JsonResponse({"exists": True, "is_verified": investor.is_verified}, status=200)
+    return JsonResponse(
+        {
+            "exists": True,
+            "is_verified": investor.is_verified,
+            "has_password": bool(investor.password_hash),
+            "company_or_representative": investor.company_or_representative,
+        },
+        status=200,
+    )
 
 
 @require_GET
@@ -80,12 +81,28 @@ def api_investor_session(request):
     if not email:
         return JsonResponse({"authenticated": False}, status=401)
 
-    investor = InvestorRequest.objects.filter(email=email, is_verified=True).first()
-    if investor is None:
+    last_activity = request.session.get(INVESTOR_LAST_ACTIVITY_KEY)
+    now_ts = _now_ts()
+    if not isinstance(last_activity, int) or (now_ts - last_activity) > INVESTOR_IDLE_TIMEOUT_SECONDS:
         request.session.pop(INVESTOR_SESSION_KEY, None)
+        request.session.pop(INVESTOR_LAST_ACTIVITY_KEY, None)
+        return JsonResponse({"authenticated": False, "reason": "session_expired"}, status=401)
+
+    investor = InvestorRequest.objects.filter(email=email, is_verified=True).first()
+    if investor is None or not investor.password_hash:
+        request.session.pop(INVESTOR_SESSION_KEY, None)
+        request.session.pop(INVESTOR_LAST_ACTIVITY_KEY, None)
         return JsonResponse({"authenticated": False}, status=401)
 
-    return JsonResponse({"authenticated": True, "email": email}, status=200)
+    request.session[INVESTOR_LAST_ACTIVITY_KEY] = now_ts
+    return JsonResponse(
+        {
+            "authenticated": True,
+            "email": email,
+            "company_or_representative": investor.company_or_representative,
+        },
+        status=200,
+    )
 
 
 @csrf_exempt
@@ -102,10 +119,7 @@ def api_investor_request(request):
     company_or_representative = (payload.get("company_or_representative") or "").strip()
 
     if not email or not company_or_representative:
-        return JsonResponse(
-            {"error": "Email and company/representative are required."},
-            status=400,
-        )
+        return JsonResponse({"error": "Email and company/representative are required."}, status=400)
 
     existing = InvestorRequest.objects.filter(email=email).first()
     if existing is not None:
@@ -113,6 +127,8 @@ def api_investor_request(request):
             {
                 "error": "This email already has an investor request.",
                 "is_verified": existing.is_verified,
+                "has_password": bool(existing.password_hash),
+                "company_or_representative": existing.company_or_representative,
             },
             status=409,
         )
@@ -121,13 +137,12 @@ def api_investor_request(request):
         email=email,
         company_or_representative=company_or_representative,
     )
-
     return JsonResponse({"message": "Request saved. Verification takes 0-60 minutes."}, status=201)
 
 
 @csrf_exempt
 @require_http_methods(["POST"])
-def api_investor_request_token(request):
+def api_investor_set_password(request):
     try:
         payload = json.loads(request.body or "{}")
     except json.JSONDecodeError:
@@ -136,38 +151,38 @@ def api_investor_request_token(request):
         return JsonResponse({"error": "Invalid JSON payload."}, status=400)
 
     email = (payload.get("email") or "").strip().lower()
-    if not email:
-        return JsonResponse({"error": "Email is required."}, status=400)
+    password = payload.get("password") or ""
+    confirm_password = payload.get("confirm_password") or ""
+    if not email or not password or not confirm_password:
+        return JsonResponse({"error": "Email, password, and confirmation are required."}, status=400)
 
     investor = InvestorRequest.objects.filter(email=email, is_verified=True).first()
     if investor is None:
         return JsonResponse({"error": "Investor is not verified yet."}, status=403)
 
-    investor.access_token = _generate_access_token()
-    investor.token_expires_at = timezone.now() + timedelta(minutes=INVESTOR_TOKEN_EXPIRY_MINUTES)
-    investor.save(update_fields=["access_token", "token_expires_at"])
+    if investor.password_hash:
+        return JsonResponse({"error": "Password is already set. Please log in."}, status=409)
 
-    try:
-        _send_investor_token_email(email, investor.access_token)
-    except Exception as exc:
-        # Avoid storing a valid token if email delivery fails.
-        investor.access_token = ""
-        investor.token_expires_at = None
-        investor.save(update_fields=["access_token", "token_expires_at"])
-        logger.exception("Investor token email send failed for %s", email)
-        if settings.DEBUG:
-            return JsonResponse({"error": f"Unable to send token email right now: {exc}"}, status=502)
-        return JsonResponse({"error": "Unable to send token email right now."}, status=502)
+    if password != confirm_password:
+        return JsonResponse({"error": "Passwords do not match."}, status=400)
 
-    return JsonResponse(
-        {"message": "Access token sent to investor email.", "expires_in_minutes": INVESTOR_TOKEN_EXPIRY_MINUTES},
-        status=200,
-    )
+    if not _is_password_strong(password):
+        return JsonResponse(
+            {"error": "Password must be at least 8 characters and include letters, numbers, and symbols."},
+            status=400,
+        )
+
+    investor.password_hash = make_password(password)
+    investor.save(update_fields=["password_hash"])
+
+    request.session[INVESTOR_SESSION_KEY] = email
+    request.session[INVESTOR_LAST_ACTIVITY_KEY] = _now_ts()
+    return JsonResponse({"authenticated": True, "message": "Password set. Investor access granted."}, status=200)
 
 
 @csrf_exempt
 @require_http_methods(["POST"])
-def api_investor_verify_token(request):
+def api_investor_authenticate(request):
     try:
         payload = json.loads(request.body or "{}")
     except json.JSONDecodeError:
@@ -176,28 +191,22 @@ def api_investor_verify_token(request):
         return JsonResponse({"error": "Invalid JSON payload."}, status=400)
 
     email = (payload.get("email") or "").strip().lower()
-    access_token = (payload.get("access_token") or "").strip()
-    if not email or not access_token:
-        return JsonResponse({"error": "Email and token are required."}, status=400)
+    password = payload.get("password") or ""
+    if not email or not password:
+        return JsonResponse({"error": "Email and password are required."}, status=400)
 
     investor = InvestorRequest.objects.filter(email=email, is_verified=True).first()
     if investor is None:
-        return JsonResponse({"error": "Investor is not verified."}, status=403)
+        return JsonResponse({"error": "Investor is not verified yet."}, status=403)
 
-    if not investor.access_token or not investor.token_expires_at:
-        return JsonResponse({"error": "No active token. Request a new one."}, status=400)
+    if not investor.password_hash:
+        return JsonResponse({"error": "Password is not set yet for this investor."}, status=400)
 
-    if timezone.now() > investor.token_expires_at:
-        return JsonResponse({"error": "Token expired. Request a new one."}, status=400)
-
-    if access_token != investor.access_token:
-        return JsonResponse({"error": "Invalid token."}, status=400)
+    if not check_password(password, investor.password_hash):
+        return JsonResponse({"error": "Invalid password."}, status=401)
 
     request.session[INVESTOR_SESSION_KEY] = email
-    investor.access_token = ""
-    investor.token_expires_at = None
-    investor.save(update_fields=["access_token", "token_expires_at"])
-
+    request.session[INVESTOR_LAST_ACTIVITY_KEY] = _now_ts()
     return JsonResponse({"authenticated": True, "message": "Investor access granted."}, status=200)
 
 

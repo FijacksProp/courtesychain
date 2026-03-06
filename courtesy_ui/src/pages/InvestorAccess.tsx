@@ -1,20 +1,22 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Loader2, MailCheck, ShieldCheck } from "lucide-react";
+import { Loader2, LockKeyhole, ShieldCheck } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
 import { useToast } from "@/hooks/use-toast";
 
 const INVESTOR_EMAIL_KEY = "cc_investor_email";
 
+type FlowStep = "submit" | "pending" | "setPassword" | "login";
+
 const InvestorAccess = () => {
   const [email, setEmail] = useState("");
   const [companyOrRepresentative, setCompanyOrRepresentative] = useState("");
-  const [token, setToken] = useState("");
-  const [flowStep, setFlowStep] = useState<"submit" | "pending" | "verified">("submit");
-  const [tokenRequested, setTokenRequested] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [flowStep, setFlowStep] = useState<FlowStep>("submit");
   const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
-  const [isRequestingToken, setIsRequestingToken] = useState(false);
-  const [isVerifyingToken, setIsVerifyingToken] = useState(false);
+  const [isSettingPassword, setIsSettingPassword] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "";
@@ -23,6 +25,7 @@ const InvestorAccess = () => {
   useEffect(() => {
     const rememberedEmail = window.localStorage.getItem(INVESTOR_EMAIL_KEY);
     if (!rememberedEmail) return;
+    setEmail(rememberedEmail);
 
     const loadStatus = async () => {
       try {
@@ -32,10 +35,14 @@ const InvestorAccess = () => {
           window.localStorage.removeItem(INVESTOR_EMAIL_KEY);
           return;
         }
-        setEmail(rememberedEmail);
-        setFlowStep(data.is_verified ? "verified" : "pending");
+        setCompanyOrRepresentative(data.company_or_representative || "");
+        if (!data.is_verified) {
+          setFlowStep("pending");
+        } else {
+          setFlowStep(data.has_password ? "login" : "setPassword");
+        }
       } catch {
-        // no-op for initial restore failures
+        // no-op
       }
     };
 
@@ -50,10 +57,13 @@ const InvestorAccess = () => {
         const response = await fetch(`${apiBaseUrl}/api/investors/status/?email=${encodeURIComponent(normalizedEmail)}`);
         const data = await response.json().catch(() => ({}));
         if (response.ok && data.exists && data.is_verified) {
-          setFlowStep("verified");
+          setCompanyOrRepresentative(data.company_or_representative || "");
+          setFlowStep(data.has_password ? "login" : "setPassword");
           toast({
             title: "Investor Verified",
-            description: "Your profile is approved. You can now request an access token.",
+            description: data.has_password
+              ? "Your account is verified. Enter your password to continue."
+              : "Your account is verified. Set your secure password to continue.",
           });
         }
       } catch {
@@ -64,7 +74,7 @@ const InvestorAccess = () => {
     return () => window.clearInterval(intervalId);
   }, [apiBaseUrl, flowStep, normalizedEmail, toast]);
 
-  const onSubmit = async (event: FormEvent) => {
+  const onSubmitRequest = async (event: FormEvent) => {
     event.preventDefault();
     setIsSubmittingRequest(true);
 
@@ -74,7 +84,7 @@ const InvestorAccess = () => {
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: email.trim().toLowerCase(),
+          email: normalizedEmail,
           company_or_representative: companyOrRepresentative.trim(),
         }),
       });
@@ -82,8 +92,13 @@ const InvestorAccess = () => {
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         if (response.status === 409) {
-          setFlowStep(data.is_verified ? "verified" : "pending");
           window.localStorage.setItem(INVESTOR_EMAIL_KEY, normalizedEmail);
+          setCompanyOrRepresentative(data.company_or_representative || companyOrRepresentative);
+          if (!data.is_verified) {
+            setFlowStep("pending");
+          } else {
+            setFlowStep(data.has_password ? "login" : "setPassword");
+          }
         }
         throw new Error(data.error || "Unable to submit request.");
       }
@@ -105,63 +120,74 @@ const InvestorAccess = () => {
     }
   };
 
-  const onRequestToken = async () => {
-    setIsRequestingToken(true);
-    try {
-      const response = await fetch(`${apiBaseUrl}/api/investors/request-token/`, {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: normalizedEmail }),
-      });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        throw new Error(data.error || "Unable to request access token.");
-      }
-      setTokenRequested(true);
-      toast({
-        title: "Token Sent",
-        description: "A 6-digit token was sent to your email. It expires in 10 minutes.",
-      });
-    } catch (error) {
-      toast({
-        title: "Token Request Failed",
-        description: error instanceof Error ? error.message : "Please try again shortly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsRequestingToken(false);
-    }
-  };
-
-  const onVerifyToken = async (event: FormEvent) => {
+  const onSetPassword = async (event: FormEvent) => {
     event.preventDefault();
-    setIsVerifyingToken(true);
+    setIsSettingPassword(true);
 
     try {
-      const response = await fetch(`${apiBaseUrl}/api/investors/verify-token/`, {
+      const response = await fetch(`${apiBaseUrl}/api/investors/set-password/`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: normalizedEmail, access_token: token.trim() }),
+        body: JSON.stringify({
+          email: normalizedEmail,
+          password,
+          confirm_password: confirmPassword,
+        }),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        throw new Error(data.error || "Unable to verify token.");
+        throw new Error(data.error || "Unable to set password.");
       }
+
       toast({
-        title: "Access Granted",
-        description: "Investor portal unlocked.",
+        title: "Password Saved",
+        description: "Investor access granted.",
       });
       navigate("/investors");
     } catch (error) {
       toast({
-        title: "Verification Failed",
+        title: "Password Setup Failed",
         description: error instanceof Error ? error.message : "Please try again.",
         variant: "destructive",
       });
     } finally {
-      setIsVerifyingToken(false);
+      setIsSettingPassword(false);
+    }
+  };
+
+  const onLogin = async (event: FormEvent) => {
+    event.preventDefault();
+    setIsLoggingIn(true);
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/investors/authenticate/`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: normalizedEmail,
+          password,
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.error || "Unable to authenticate.");
+      }
+
+      toast({
+        title: "Access Granted",
+        description: "Welcome back to the investor portal.",
+      });
+      navigate("/investors");
+    } catch (error) {
+      toast({
+        title: "Authentication Failed",
+        description: error instanceof Error ? error.message : "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
@@ -172,11 +198,11 @@ const InvestorAccess = () => {
           <div className="glass-card p-8 md:p-10">
             <h1 className="text-2xl md:text-3xl font-heading font-bold mb-2">Investor Access</h1>
             <p className="text-sm text-muted-foreground mb-6">
-              Enter your investor email and company/representative details.
+              Verified investors access the protected portal using their secure password.
             </p>
 
             {flowStep === "submit" && (
-              <form onSubmit={onSubmit} className="space-y-4">
+              <form onSubmit={onSubmitRequest} className="space-y-4">
                 <div>
                   <label className="block text-xs font-semibold text-muted-foreground mb-1.5">Investor Email</label>
                   <input
@@ -230,52 +256,82 @@ const InvestorAccess = () => {
               </div>
             )}
 
-            {flowStep === "verified" && (
-              <div className="space-y-4">
+            {flowStep === "setPassword" && (
+              <form onSubmit={onSetPassword} className="space-y-4">
                 <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 flex items-start gap-3">
                   <ShieldCheck className="text-emerald-500 shrink-0 mt-0.5" size={18} />
                   <div>
                     <p className="font-semibold text-foreground">Investor Verified</p>
-                    <p className="text-sm text-muted-foreground">
-                      Email: <span className="font-medium text-foreground">{normalizedEmail}</span>
-                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">{normalizedEmail}</p>
+                    <p className="text-xs text-muted-foreground">{companyOrRepresentative}</p>
                   </div>
                 </div>
 
+                <div>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1.5">Create Secure Password</label>
+                  <input
+                    required
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-lg bg-muted/50 border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                    placeholder="Use letters, numbers, symbols"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1.5">Confirm Password</label>
+                  <input
+                    required
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-lg bg-muted/50 border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                    placeholder="Re-enter password"
+                  />
+                </div>
+
                 <button
-                  type="button"
-                  onClick={onRequestToken}
-                  disabled={isRequestingToken}
+                  type="submit"
+                  disabled={isSettingPassword}
                   className="w-full px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-60"
                 >
-                  {isRequestingToken ? "Sending Token..." : "Request Access Token"}
+                  {isSettingPassword ? "Saving..." : "Save Password and Continue"}
                 </button>
+              </form>
+            )}
 
-                {tokenRequested && (
-                  <form onSubmit={onVerifyToken} className="space-y-3 pt-2">
-                    <label className="block text-xs font-semibold text-muted-foreground mb-1.5">Access Token</label>
-                    <div className="relative">
-                      <MailCheck size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                      <input
-                        required
-                        value={token}
-                        maxLength={6}
-                        onChange={(e) => setToken(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2.5 rounded-lg bg-muted/50 border border-border text-sm tracking-[0.35em] text-center text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
-                        placeholder="123456"
-                      />
-                    </div>
-                    <p className="text-xs text-muted-foreground">Token expires in 10 minutes.</p>
-                    <button
-                      type="submit"
-                      disabled={isVerifyingToken}
-                      className="w-full px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-muted/50 transition-colors disabled:opacity-60"
-                    >
-                      {isVerifyingToken ? "Verifying..." : "Verify Token and Continue"}
-                    </button>
-                  </form>
-                )}
-              </div>
+            {flowStep === "login" && (
+              <form onSubmit={onLogin} className="space-y-4">
+                <div className="rounded-xl border border-border bg-muted/30 p-4 flex items-start gap-3">
+                  <LockKeyhole className="text-primary shrink-0 mt-0.5" size={18} />
+                  <div>
+                    <p className="font-semibold text-foreground">Investor Sign In</p>
+                    <p className="text-xs text-muted-foreground mt-1">{normalizedEmail}</p>
+                    <p className="text-xs text-muted-foreground">{companyOrRepresentative}</p>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1.5">Password</label>
+                  <input
+                    required
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-lg bg-muted/50 border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                    placeholder="Enter your secure password"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoggingIn}
+                  className="w-full px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-60"
+                >
+                  {isLoggingIn ? "Checking..." : "Unlock Investor Portal"}
+                </button>
+              </form>
             )}
           </div>
         </SectionReveal>

@@ -46,7 +46,7 @@ const Navbar = () => {
             </Link>
           ))}
           <Link
-            to="/investors/access"
+            to="/investors"
             className="ml-2 p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors"
             aria-label="Investor Access"
             title="Investor Access"
@@ -63,7 +63,7 @@ const Navbar = () => {
         </div>
 
         <div className="md:hidden flex items-center gap-2">
-          <Link to="/investors/access" className="p-2 text-muted-foreground" aria-label="Investor Access">
+          <Link to="/investors" className="p-2 text-muted-foreground" aria-label="Investor Access">
             <Fingerprint size={18} />
           </Link>
           <button onClick={toggleTheme} className="p-2 text-muted-foreground" aria-label="Toggle theme">

@@ -173,6 +173,15 @@ const InvestorPortal = () => {
             <p className={`mt-6 text-lg md:text-2xl max-w-3xl ${isDark ? "text-[#b3d9c6]" : "text-[#2f6050]"}`}>
               Tokenizing Road Safety through Behavioral Infrastructure
             </p>
+            <div className="mt-7">
+              <Link
+                to="/investors/simulation"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#00ff88] text-[#042014] px-5 py-3 font-semibold hover:bg-[#22ff99] transition-colors"
+              >
+                Live Simulation
+                <ArrowRight size={16} />
+              </Link>
+            </div>
             <div
               className={`mt-10 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs ${
                 isDark

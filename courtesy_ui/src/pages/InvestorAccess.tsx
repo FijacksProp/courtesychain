@@ -23,11 +23,31 @@ const InvestorAccess = () => {
   const normalizedEmail = useMemo(() => email.trim().toLowerCase(), [email]);
 
   useEffect(() => {
-    const rememberedEmail = window.localStorage.getItem(INVESTOR_EMAIL_KEY);
-    if (!rememberedEmail) return;
-    setEmail(rememberedEmail);
+    const checkSession = async () => {
+      try {
+        const response = await fetch(`${apiBaseUrl}/api/investors/session/`, { credentials: "include" });
+        const data = await response.json().catch(() => ({}));
+        if (response.ok && data.authenticated) {
+          navigate("/investors");
+          return true;
+        }
+      } catch {
+        // no-op
+      }
+      return false;
+    };
 
+    const rememberedEmail = window.localStorage.getItem(INVESTOR_EMAIL_KEY);
     const loadStatus = async () => {
+      const hasSession = await checkSession();
+      if (hasSession) {
+        return;
+      }
+      if (!rememberedEmail) {
+        return;
+      }
+      setEmail(rememberedEmail);
+
       try {
         const response = await fetch(`${apiBaseUrl}/api/investors/status/?email=${encodeURIComponent(rememberedEmail)}`);
         const data = await response.json().catch(() => ({}));
@@ -47,7 +67,7 @@ const InvestorAccess = () => {
     };
 
     loadStatus();
-  }, [apiBaseUrl]);
+  }, [apiBaseUrl, navigate]);
 
   useEffect(() => {
     if (flowStep !== "pending" || !normalizedEmail) return;

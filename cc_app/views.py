@@ -14,7 +14,7 @@ from .models import InvestorRequest
 
 INVESTOR_SESSION_KEY = "investor_email"
 INVESTOR_LAST_ACTIVITY_KEY = "investor_last_activity"
-INVESTOR_IDLE_TIMEOUT_SECONDS = 60 * 60
+INVESTOR_IDLE_TIMEOUT_SECONDS = 30 * 60
 
 
 def _now_ts():
@@ -82,8 +82,12 @@ def api_investor_session(request):
         return JsonResponse({"authenticated": False}, status=401)
 
     last_activity = request.session.get(INVESTOR_LAST_ACTIVITY_KEY)
+    try:
+        last_activity_ts = int(last_activity)
+    except (TypeError, ValueError):
+        last_activity_ts = None
     now_ts = _now_ts()
-    if not isinstance(last_activity, int) or (now_ts - last_activity) > INVESTOR_IDLE_TIMEOUT_SECONDS:
+    if last_activity_ts is None or (now_ts - last_activity_ts) > INVESTOR_IDLE_TIMEOUT_SECONDS:
         request.session.pop(INVESTOR_SESSION_KEY, None)
         request.session.pop(INVESTOR_LAST_ACTIVITY_KEY, None)
         return JsonResponse({"authenticated": False, "reason": "session_expired"}, status=401)

@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import SectionReveal from "@/components/SectionReveal";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
@@ -86,47 +86,13 @@ const VALUE_CARDS = [
 ];
 
 const InvestorPortal = () => {
-  const [email, setEmail] = useState("");
-  const [companyOrRepresentative, setCompanyOrRepresentative] = useState("");
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   const { theme } = useTheme();
   const isDark = theme === "dark";
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "";
-
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/api/investors/session/`, { credentials: "include" });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.authenticated) {
-          if (data?.email) {
-            window.localStorage.setItem("cc_investor_email", data.email);
-          }
-          navigate("/investors/access");
-          return;
-        }
-        setEmail(data.email || "");
-        setCompanyOrRepresentative(data.company_or_representative || "");
-        window.localStorage.setItem("cc_investor_email", data.email || "");
-      } catch {
-        navigate("/investors/access");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkSession();
-  }, [apiBaseUrl, navigate]);
 
   const particles = useMemo(
     () => Array.from({ length: 18 }).map((_, i) => ({ id: i, left: `${(i + 1) * 5}%`, delay: `${(i % 6) * 1.2}s` })),
     [],
   );
-
-  if (loading) {
-    return <div className="section-padding pt-28 md:pt-36 text-center text-muted-foreground">Loading investor portal...</div>;
-  }
 
   return (
     <div className={`min-h-screen transition-colors ${isDark ? "bg-[#040a0f] text-[#ecfff5]" : "bg-[#f5faf7] text-[#0b1e18]"}`}>
@@ -189,7 +155,7 @@ const InvestorPortal = () => {
                   : "border border-[#00a866]/40 bg-[#00a866]/10 text-[#16503f]"
               }`}
             >
-              Session active for: {email}
+              Public investor access
             </div>
           </SectionReveal>
         </div>
@@ -234,7 +200,7 @@ const InvestorPortal = () => {
                           : "border-[#d88d14]/70 text-[#b87308] hover:bg-[#f5a623]/12"
                       }`}
                     >
-                      Join the Movement — Contact Us
+                      Join the Movement - Contact Us
                       <ArrowRight size={16} />
                     </Link>
                   </div>
@@ -272,8 +238,7 @@ const InvestorPortal = () => {
             isDark ? "border-[#1d2e39] bg-[#061018] text-[#86a79b]" : "border-[#cfe8dc] bg-[#eef8f2] text-[#4e7365]"
           }`}
         >
-          <p>Investor email: {email}</p>
-          <p>Company/Rep: {companyOrRepresentative}</p>
+          This page is public and contains no user session, password gate, or database-backed investor state.
         </div>
       </div>
     </div>

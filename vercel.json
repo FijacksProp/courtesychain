@@ -1,0 +1,11 @@
+{
+  "installCommand": "cd courtesy_ui && npm ci",
+  "buildCommand": "cd courtesy_ui && npm run build",
+  "outputDirectory": "courtesy_ui/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

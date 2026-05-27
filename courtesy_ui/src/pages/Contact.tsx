@@ -24,37 +24,27 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", type: "", subject: "", message: "" });
 
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "";
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      const response = await fetch(`${apiBaseUrl}/api/contact/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+    const inquiryLabel = inquiryTypes.find((type) => type.value === form.type)?.label || "General Inquiry";
+    const subject = form.subject.trim() || `${inquiryLabel} - Courtesy Chain`;
+    const body = [
+      `Name: ${form.name.trim()}`,
+      `Email: ${form.email.trim()}`,
+      `Inquiry Type: ${inquiryLabel}`,
+      "",
+      form.message.trim(),
+    ].join("\n");
 
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        throw new Error(data.error || "Unable to send message right now.");
-      }
+    window.location.href = `mailto:contact@courtesychain.io?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      toast({ title: "Message Sent!", description: data.message || "Thank you for reaching out. We'll respond within 24 hours." });
-      setForm({ name: "", email: "", type: "", subject: "", message: "" });
-    } catch (error) {
-      toast({
-        title: "Submission Failed",
-        description: error instanceof Error ? error.message : "Please try again shortly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    toast({
+      title: "Opening Email Client",
+      description: "Your message has been prepared locally. Send it from your email app to reach Courtesy Chain.",
+    });
+    setIsSubmitting(false);
   };
 
   return (
@@ -147,7 +137,7 @@ const Contact = () => {
                     disabled={isSubmitting}
                     className="w-full px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
                   >
-                    {isSubmitting ? "Sending..." : "Send Message"}
+                    {isSubmitting ? "Preparing..." : "Prepare Email"}
                   </button>
                 </form>
               </div>

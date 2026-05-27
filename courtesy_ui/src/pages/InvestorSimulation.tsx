@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowLeft, CheckCircle2, Navigation, XCircle } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
 import { useTheme } from "@/components/ThemeProvider";
@@ -187,10 +187,6 @@ const createTrip = (id: number): Trip => {
 const InvestorSimulation = () => {
   const { theme }  = useTheme();
   const isDark     = theme === "dark";
-  const navigate   = useNavigate();
-
-  const [loadingAuth, setLoadingAuth] = useState(true);
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "";
 
   const [trip,          setTrip]          = useState<Trip>(() => createTrip(Date.now()));
   const [progress,      setProgress]      = useState(0);
@@ -203,29 +199,6 @@ const InvestorSimulation = () => {
   const rafRef      = useRef<number | null>(null);
   const cooldownRef = useRef<number | null>(null);
   const startedRef  = useRef<number>(0);
-
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/api/investors/session/`, { credentials: "include" });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.authenticated) {
-          if (data?.email) {
-            window.localStorage.setItem("cc_investor_email", data.email);
-          }
-          navigate("/investors/access");
-          return;
-        }
-      } catch {
-        navigate("/investors/access");
-        return;
-      } finally {
-        setLoadingAuth(false);
-      }
-    };
-
-    checkSession();
-  }, [apiBaseUrl, navigate]);
 
   /* derived positions */
   const completedIndex = useMemo(
@@ -268,8 +241,6 @@ const InvestorSimulation = () => {
 
   /* animation loop */
   useEffect(() => {
-    if (loadingAuth) return;
-
     startedRef.current = performance.now();
     setStatus("running");
     setProgress(0);
@@ -312,7 +283,7 @@ const InvestorSimulation = () => {
       if (rafRef.current)  cancelAnimationFrame(rafRef.current);
       if (cooldownRef.current) clearTimeout(cooldownRef.current);
     };
-  }, [loadingAuth, trip.id, trip.durationMinutes, trip.events, trip.simDurationMs, trip.startMinutes]);
+  }, [trip.id, trip.durationMinutes, trip.events, trip.simDurationMs, trip.startMinutes]);
 
   /* SVG path strings */
   const toPath = (pts: RoutePoint[]) =>
@@ -323,10 +294,6 @@ const InvestorSimulation = () => {
 
   const elapsed = `${Math.floor(simElapsedSec / 60)}:${String(simElapsedSec % 60).padStart(2, "0")}`;
   const target  = `${trip.durationMinutes}:00`;
-
-  if (loadingAuth) {
-    return <div className="section-padding pt-28 md:pt-36 text-center text-muted-foreground">Authorizing simulation access...</div>;
-  }
 
   /* ── map colour tokens ── */
   const mapBg      = isDark ? "#06111a" : "#dff0e8";

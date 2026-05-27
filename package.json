@@ -1,0 +1,12 @@
+{
+  "name": "courtesychain-site",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm --prefix courtesy_ui run dev",
+    "build": "npm --prefix courtesy_ui run build",
+    "preview": "npm --prefix courtesy_ui run preview",
+    "test": "npm --prefix courtesy_ui run test",
+    "lint": "npm --prefix courtesy_ui run lint"
+  }
+}
